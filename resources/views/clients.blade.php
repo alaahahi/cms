@@ -9,25 +9,19 @@
                     <h3><strong>{{ __('voyager::generic.client') }}</strong></h3>
                 </div>
             </div>
-             <a href="javascript:void(0)" class="btn btn-primary add">{{ __('voyager::generic.new_client') }}</a>
-            <!-- <a href="" class="btn btn-primary">Download ALL Order</a> -->
-            <br>
             
+            <!-- <a href="" class="btn btn-primary">Download ALL Order</a> -->
             <div class="row">
-                <div class="col-md-6 text-center">           
-                    <div class="form-group">
-                        <label for="totaltody">{{ __('voyager::generic.client_today') }}</label>
-                        <?php $total = 0;$count =0 ?>
-                           @foreach ($data as $datas)
-                            <?php $count =  $count + 1;  ?>
-                           @endforeach
-                        <input  value = "<?php echo $total ?? 0 ?>" type="text"  class="form-control mx-sm-3" disabled>
-                    </div>
-                </div>
-                <div class="col-md-6 text-center">
+            <div class="col-md-6 text-center">
                     <div class="form-group">
                     <label for="totaltody">Client Count</label>
                     <input value="<?php echo $count ?? 0 ?>"  type="text"  class="form-control mx-sm-3" disabled>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">           
+                    <div class="form-group">
+                    <br>
+                        <a href="javascript:void(0)" class=" col-md-12 btn btn-primary add">{{ __('voyager::generic.new_client') }}</a>
                     </div>
                 </div>
             </div>
@@ -101,7 +95,7 @@
             <label for="phone" class="col-form-label">{{ __('voyager::generic.card_type') }}:</label>
             <input type="text" class="form-control"  id="card_type_id" disabled>
             <span id="card_type">
-            <select class="form-control select2-ajax select2-hidden-accessible " name="card_type_id" data-get-items-route="http://localhost/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_card_type_relationship" data-method="add" data-select2-id="1" tabindex="-1" aria-hidden="true">
+            <select class="form-control select2-ajax select2-hidden-accessible " name="card_type_id" data-get-items-route="http://localhost/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_card_type_relationship_1" data-method="add" data-select2-id="1" tabindex="-1" aria-hidden="true">
                     <option value="" data-select2-id="3">None</option>
             </select>
             </span>
@@ -119,7 +113,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Save</button></div>
+        <button type="submit" class="btn btn-success" id="save_btn">Save</button></div>
     </div>
     </form>
   </div>
@@ -187,6 +181,7 @@ $.ajaxSetup({
     });
 
    $('#upload-image-form').submit(function(e) {
+    $('#save_btn').prop('disabled', true);
        e.preventDefault();
        let Item_id
        let formData = new FormData(this);
@@ -207,10 +202,12 @@ $.ajaxSetup({
             $('.data-table').DataTable().ajax.reload();
              if (response) {
                this.reset();
+               $('#save_btn').prop('disabled', false);
                $('.modal-product').modal('hide');
              }
            },
            error: function(response){
+            $('#save_btn').prop('disabled', false);
               console.log(response);
            }
        });

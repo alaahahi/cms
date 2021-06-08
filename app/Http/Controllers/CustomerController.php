@@ -1001,12 +1001,6 @@ class CustomerController extends Controller
     public function edit_clients(Request $request,$id)
     {
         $date = Carbon::now();
-        $request->validate([ 
-            'full_name' => 'required',
-            'phone' => 'required',
-            'birth_date' => 'required',
-            'card_number' => 'required|max:12',
-            'strat_active' => 'required',]);
         $userId =  Auth::user()->id;
         $item= [ 
          'full_name'=> $request->full_name,
@@ -1017,16 +1011,25 @@ class CustomerController extends Controller
          'strat_active'=> $request->strat_active,
         ];
         if($id == 0 ){
+            $request->validate([ 
+                'full_name' => 'required',
+                'phone' => 'required',
+                'birth_date' => 'required',
+                'card_number' => 'required|max:12',
+                'strat_active' => 'required',]);
+
             $day = DB::table('card_type')->where('card_type.id', '=', $item['card_type_id'] )->select('validation')->first()->validation;
             $day_str="+$day days";
             $end_active =date('Y-m-d',strtotime($day_str,strtotime($item['strat_active'])));
-            $client_id= DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date));
-            $cards_id= DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=>$userId,'created_at'=>$date));
-            $cards_ids= DB::table('card_user')->insertGetId(array('card_id' => $cards_id,'client_id' => $cards_id,'strat_active' => $item['strat_active'],'author_id'=>$userId,'end_active' =>  $end_active,'created_at'=>$date));
+            DB::table('card_user')->insert(array('card_id' => DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=>$userId,'created_at'=>$date)),'client_id' =>DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date)),'strat_active' => $item['strat_active'],'author_id'=>$userId,'end_active' =>  $end_active,'created_at'=>$date));
             return response()->json('Added Client');
         }
         else
         {
+            $request->validate([ 
+                'full_name' => 'required',
+                'phone' => 'required',
+                'birth_date' => 'required']);
         DB::table('client')->where('id',$id)->update(['full_name' => $item['full_name'],'phone' => $item['phone'],'birth_date'=>$item['birth_date'],'updated_at'=>$date]);
         return response()->json('Update client');
         }
