@@ -1051,26 +1051,24 @@ class CustomerController extends Controller
         ->first();
         return response()->json($data);       
     }
-    public function check_card(Request $request)
+    public function check_card(Request $request,$q="")
     { 
         $data = DB::table('client')
-        ->join('service_client', 'service_client.client_id', '=', 'client.id')
-        ->join('services', 'services.id', '=', 'service_client.service_id')
-        ->join('servicecardtype', 'servicecardtype.services_id', '=', 'services.id')
-        //->join('cards', 'cards.id', '=', 'servicecardtype.card_type_id')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
+        ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->join('service_client', 'service_client.service_id', '=', 'services.id')
+        ->join('users', 'users.id', '=', 'service_client.user_chack')
         ->where('client.deleted_at', '=',  null )
-        ->select(['client.id','services.title','service_client.date','service_client.user_chack', 'service_client.number'])
+        ->where('cards.card_number', '=', $q )
+        ->select(['client.id','services.title','service_client.date','service_client.number','users.name'])
         ->get();      
         //return response()->json($data);  
        if ($request->ajax()) 
        {
-        return Datatables::of($data)
-        ->addColumn('action', function ($data) {
-            return '<a  href="javascript:void(0)" data-toggle="tooltip" data-id="'.$data->id.'" class="btn btn-sm btn-primary pull-right edit"><i class="voyager-edit"></i></a>
-               <a href="javascript:void(0)"  data-id="'.$data->id.'" class="btn btn-sm btn-danger pull-right delete"><i class="voyager-trash"></i></a>';
-    })
-        ->rawColumns(['action'])
-        ->make(true);
+        return Datatables::of($data)->make(true);
      }
         return view('check_card',compact('data'));
     }
@@ -1088,6 +1086,29 @@ class CustomerController extends Controller
         ->first();
         return response()->json($data);        
     }
+    public function card_service($q)
+    {  
+        $data = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
+        ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->where('cards.card_number', '=', $q )
+        ->select(['services.title','services.id as services_id','client.id as client_id'])
+        ->get();
+        if($data)      
+        return response()->json($data);  
+        else 
+        return response()->json(0); 
 
-
+    }
+    public function submit_service($client,$services)
+    { 
+        $date = Carbon::now();
+        $userId =  Auth::user()->id;
+        $number=DB::table('service_client')->where('service_id', '=', $services )->where('client_id', '=', $client)->count();
+        DB::table('service_client')->insert(array('service_id' => $services,'client_id' => $client,'date'=>$date,'number'=>$number+1,'user_chack'=>$userId ,'created_at'=>$date));
+        return response()->json('Added Client Services');
+    }
 }

@@ -23,6 +23,9 @@
 .alert .fa {
   margin-right:.3em;
 }
+.mr {
+    width: 90%; 
+}
 </style>
 <div class="container">
     <div class="row">
@@ -62,10 +65,9 @@
                 <thead>
                     <tr>
                         <th>{{ __('voyager::generic.serives_title') }}</th>
-                        <th>{{ __('voyager::generic.serives_number') }}</th>
                         <th>{{ __('voyager::generic.admin_check') }}</th>
                         <th>{{ __('voyager::generic.date') }}</th>
-                        <th>{{ __('voyager::generic.Action') }}</th>
+                        <th>{{ __('voyager::generic.number') }}</th>
                 </thead>
                 <tbody>
                 </tbody>
@@ -80,10 +82,10 @@
     <div class="modal-header">
     <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-10">
             <h4 class="modal-title" id="exampleModalLabel">{{ __('voyager::generic.check_card') }}</h4>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -94,51 +96,48 @@
         <form method="post" id="upload-image-form" enctype="multipart/form-data">
         @csrf
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="full_name" class="col-form-label">{{ __('voyager::generic.full_name') }}:</label>
                     <input type="text" class="form-control" name="full_name"  id="full_name" require>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                 <label for="phone" class="col-form-label">{{ __('voyager::generic.phone') }}</label>
                 <input type="text" class="form-control" name="phone" id="phone" require>
             </div>
           </div>
-        </div>
-        <div class="row">
-        <div class="col-md-6">
+          <div class="col-md-4">
                 <div class="form-group">
                 <label for="card_number" class="col-form-label">{{ __('voyager::generic.card_number') }}:</label>
                 <input type="number" class="form-control" name="card_number" id="card_number" require>
                 </div>
             </div>
-            <div class="col-md-6">
+        </div>
+        <div class="row">
+            <div class="col-md-4">
             <label for="phone" class="col-form-label">{{ __('voyager::generic.card_type') }}:</label>
             <input type="text" class="form-control"  id="card_type_id" disabled>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                 <label for="strat_active" class="col-form-label">{{ __('voyager::generic.strat_active') }}:</label>
                 <input type="date" class="form-control" name="strat_active" id="strat_active" require>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                 <label for="end_active" class="col-form-label">{{ __('voyager::generic.end_active') }}:</label>
                 <input type="date" class="form-control" name="end_active" id="end_active" require>
                 </div>
             </div>
         </div>
+        <h4 class="text-center">Services</h4>
+        <div class="row" id="Services">
+        </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Save</button></div>
-    </div>
     </form>
   </div>
 </div>
@@ -151,19 +150,11 @@
 <script type="text/javascript">
   $(function () {
     $("#success-alert").hide();
-    //$(".data-table").hide();
     $("#danger-alert").hide();
-    var table = $('.data-table').DataTable({
-       ajax: "{{ route('check_card') }}",
-      columns: [
-            {data: 'title', name: 'title'},
-            {data: 'number', name: 'number'},
-           {data: 'user_chack', name: 'user_chack'},
-           {data: 'date', name: 'date'},
-            {data: 'action', name: 'action'},
-       ]});
+    var table;
     $('body').on('click', '.add', function () { 
         var q = $('#card_number_input').val();
+
         $.ajax({
             type: "GET",
             url:"{{ route('check_card_no') }}/"+q ,
@@ -171,7 +162,7 @@
                 if(client.card_number){
                 $("#active_to").text(client.end_active+' Type Card is '+client.title);
                 $("#success-alert").alert();
-                $("#success-alert").fadeTo(10000, 500).slideUp(500, function(){
+                $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
                 $("#success-alert").slideUp(500);
                 });
                 $('#full_name').val(client.full_name).prop('disabled', true);
@@ -180,10 +171,38 @@
                 $('#strat_active').val(client.strat_active).prop('disabled', true);
                 $('#end_active').val(client.end_active).prop('disabled', true);
                 $('#card_type_id').val(client.title);
+                $.ajax({
+                                type: "GET",
+                                url:"{{ route('card_service') }}/"+q ,
+                                success: function (service) {
+                                    if(service !=0 ){
+                                        $('#Services').empty();
+                                        $.each(service, function(index,value) {
+                                    $('#Services').append(
+                                        '<div class="form-group col-md-4 text-center"><a href="javascript:void(0)" class="mr btn btn-primary service_action" data-client="'+value.client_id+ '" data-services="'+value.services_id+ '" > '+value.title+ '</a></div>'
+                                        );
+                                            });
+                                }
+                                },
+                                error: function (data) {
+                                    console.log('Error:', data);
+                                }
+                                
+                }); 
                 window.setTimeout(function () { 
                     $('.modal-product').modal('show');
-                }, 1500);   
-            }
+                }, 5050); 
+                table = $('.data-table').DataTable({
+                            ajax: "{{ route('check_card') }}/"+q ,
+                                    columns: [
+                                    {data: 'title', name: 'title'},
+                                    {data: 'name', name: 'name'},
+                                    {data: 'date', name: 'date'},
+                                    {data: 'number', name: 'number'},
+                                    ],
+                                    "bDestroy": true
+                            });
+                    }
             else {
                 $("#danger-alert").alert();
                 $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
@@ -195,83 +214,25 @@
 
                 console.log('Error:', data);
             }
-        });
+            
+        });  
     });
-    $('body').on('click', '.edit', function () {
-        let Item_id;
-        if($(this).data('id')){
-        Item_id = $(this).data('id');
-       }else{
-       Item_id = 0 ;
-        }
-       
-      $.ajax({
+    $('body').on('click', '.service_action', function () {
+    Item_client = $(this).data('client');
+    Item_services = $(this).data('services');
+    $.ajax({
             type: "GET",
-            url:"{{ route('edit_client') }}/"+Item_id,
+            url:"{{ route('submit_service') }}/"+Item_client+"/"+Item_services,
             success: function (client) {
-                $('#full_name').val(client.full_name);
-                $('#phone').val(client.phone);
-                $('#card_number').val(client.card_number).prop('disabled', true);
-                $('#strat_active').val(client.strat_active).prop('disabled', true);
-                $('#birth_date').val(client.birth_date);
-                $('#card_type_id').val(client.title);
-                $("#card_type").hide();
-                $("#card_type_id").show();
-                $('#upload-image-form').attr('data-id' , client.id);
-                $('.modal-product').modal('show');
+                $('.data-table').DataTable().ajax.reload();
+                $('.modal-product').modal('hide');
             },
             error: function (data) {
-              
                 console.log('Error:', data);
             }
         });
+
     });
-$.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-   $('#upload-image-form').submit(function(e) {
-       e.preventDefault();
-       let Item_id
-       let formData = new FormData(this);
-       if($(this).data('id')){
-        Item_id = $(this).data('id');
-       }else{
-       Item_id = 0 ;
-        }
-
-       $('#image-input-error').text('');
-       $.ajax({
-          type:'POST',
-          url:"{{ route('edit_clients') }}/"+Item_id,
-           data: formData,
-           contentType: false,
-           processData: false,
-           success: (response) => {
-            $('.data-table').DataTable().ajax.reload();
-             if (response) {
-               this.reset();
-               $('.modal-product').modal('hide');
-             }
-           },
-           error: function(response){
-              console.log(response);
-           }
-       });
-  });
-});
-
-$('body').on('click', '.delete', function () {
-            var Item_id = $(this).data('id');
-$.ajax({
-        type: 'DELETE' ,
-        url:"{{ route('remove_clients') }}/"+Item_id,
-        dataType: 'json',
-        success:function(data){
-            $('.data-table').DataTable().ajax.reload();
-        }});
     });
 </script>
 @endsection 

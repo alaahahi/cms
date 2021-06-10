@@ -116,4 +116,5 @@ return [
     'serives_number'         => 'رقم الخدمة',
     'admin_check'            => 'المدير المخدم',
     'date'                   => 'بتاريخ',
+    'number'                 => 'العدد',
 ];

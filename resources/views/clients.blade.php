@@ -14,6 +14,10 @@
             <div class="row">
             <div class="col-md-6 text-center">
                     <div class="form-group">
+                    <?php $total = 0;$count =0 ?>
+                           @foreach ($data as $datas)
+                            <?php $count =  $count + 1;  ?>
+                           @endforeach
                     <label for="totaltody">Client Count</label>
                     <input value="<?php echo $count ?? 0 ?>"  type="text"  class="form-control mx-sm-3" disabled>
                     </div>
@@ -118,7 +122,7 @@
     </form>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
@@ -190,7 +194,6 @@ $.ajaxSetup({
        }else{
        Item_id = 0 ;
         }
-
        $('#image-input-error').text('');
        $.ajax({
           type:'POST',

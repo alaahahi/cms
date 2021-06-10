@@ -38,5 +38,7 @@ Route::Post('edit_clients/{id?}', [CustomerController::class, 'edit_clients'])->
 Route::delete('remove_clients/{id?}', [CustomerController::class, 'remove_clients'])->name('remove_clients');
 
 
-Route::get('check_card', [CustomerController::class, 'check_card'])->name('check_card');
+Route::get('check_card/{q?}', [CustomerController::class, 'check_card'])->name('check_card');
 Route::get('check_card_no/{q?}', [CustomerController::class, 'check_card_no'])->name('check_card_no');
+Route::get('card_service/{q?}', [CustomerController::class, 'card_service'])->name('card_service');
+Route::get('submit_service/{client?}/{services?}', [CustomerController::class, 'submit_service'])->name('submit_service');

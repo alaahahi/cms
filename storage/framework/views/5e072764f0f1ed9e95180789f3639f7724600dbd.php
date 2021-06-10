@@ -59,11 +59,6 @@
                                        value="<?php echo e(old('phone', $dataTypeContent->phone ?? '')); ?>">
                             </div>
                             <div class="form-group">
-                                <label for="role_id"><?php echo e(__('voyager::generic.role_id')); ?></label>
-                                <input type="phone" class="form-control" id="role_id" name="role_id" placeholder="<?php echo e(__('voyager::generic.role_id')); ?>"
-                                       value="<?php echo e(old('role_id', $dataTypeContent->role_id ?? '')); ?>">
-                            </div>
-                            <div class="form-group">
                                 <label for="password"><?php echo e(__('voyager::generic.password')); ?></label>
                                 <?php if(isset($dataTypeContent->password)): ?>
                                     <br>

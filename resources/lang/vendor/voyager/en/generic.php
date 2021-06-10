@@ -126,5 +126,6 @@ return [
     'serives_number'         => 'Serives Number',
     'admin_check'            => 'Admin Check',
     'date'                   => 'Date',
+    'number'                 => 'Number',
 
 ];
