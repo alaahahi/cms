@@ -1094,8 +1094,10 @@ class CustomerController extends Controller
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
         ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->join('service_client', 'service_client.service_id', '=', 'services.id')
+        ->join('users', 'users.id', '=', 'service_client.user_chack')
         ->where('cards.card_number', '=', $q )
-        ->select(['services.title','services.id as services_id','client.id as client_id'])
+        ->select(['services.title','services.id as services_id','client.id as client_id','users.name'])
         ->get();
         if($data)      
         return response()->json($data);  
@@ -1111,4 +1113,102 @@ class CustomerController extends Controller
         DB::table('service_client')->insert(array('service_id' => $services,'client_id' => $client,'date'=>$date,'number'=>$number+1,'user_chack'=>$userId ,'created_at'=>$date));
         return response()->json('Added Client Services');
     }
+    public function card(Request $request,$q="")
+    { 
+        $data = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
+        ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->where('cards.card_number', '=', $q )
+        ->select(['services.title','services.id as services_id','client.id as client_id'])
+        ->get();
+        //return response()->json($data);
+        if ($request->ajax()) 
+        {
+         return Datatables::of($data)->make(true);
+      }
+        return view('report/card',compact('data'));
+    }
+    public function generatePDF_card($q="")
+    {
+        $new = date('Y-m-d');
+        $customers = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
+        ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->join('service_client', 'service_client.service_id', '=', 'services.id')
+        ->join('users', 'users.id', '=', 'service_client.user_chack')
+        ->where('cards.card_number', '=', $q )
+        ->select('client.full_name','client.birth_date','cards.card_number','card_user.strat_active','card_user.end_active','client.phone','services.title','card_type.title as type','users.name','service_client.date')
+        ->get();
+
+        if(!empty($customers->first())){
+        $pdf = PDF::loadView('report/card_pdf',compact('customers','new'));
+        return $pdf->download($q.' '.$new.'..pdf');
+        }
+        else 
+        return response()->json("No Cards");
+
+    }  
+    public function cards_from_to(Request $request,$from=0,$to=0,$type="",$pdf_download=false)
+    {
+        $new = date('Y-m-d');
+        $type_ar="";
+        if ($from == 0) $from ="2021-06-01";
+        if ($to == 0) $to =date('Y-m-d');
+        $customers_temp = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id');
+        if($type=="started")
+        {
+        $customers_result=$customers_temp
+        ->whereBetween('card_user.strat_active', [$from, $to]);
+        $type_ar="  جميع البطاقات الفعالة من تاريخ ".$from." إلى تاريخ".$to;
+        }
+        if($type=="ended")
+        {
+        $customers_result=$customers_temp
+        ->whereBetween('card_user.end_active', [$from, $to]);
+        $type_ar="  جميع البطاقات الغير الفعالة من تاريخ ".$from." إلى تاريخ".$to;
+        }
+        if($type=="active")
+        {
+        $customers_result=$customers_temp
+        ->where('card_user.end_active','>=',$new);
+        $type_ar=" جميع البطاقات الفعالة لتاريخ ".$new;
+        }
+        if($type=="finished")
+        {
+        $customers_result=$customers_temp
+        ->where('card_user.end_active','<',$new);
+        $type_ar=" جميع البطاقات الغير الفعالة لتاريخ ".$new;
+        }
+        if($type=="all")
+        {
+        $customers_result=$customers_temp;
+        $type_ar=" جميع البطاقات الفعالة وغير الفعالة لتاريخ".$new;
+        }
+
+        $customers=$customers_result->select('*')->get();
+        if ($request->ajax()) 
+        {
+         return Datatables::of($customers)->make(true);
+        }
+        if($pdf_download){
+        if(!empty($customers->first())){
+        $pdf = PDF::loadView('report/card_from_to_pdf',compact('customers','new','type_ar'));
+        return $pdf->download(' '.$new.'..pdf');
+        }
+        else 
+        return response()->json("No Cards");
+        }
+        return response()->json($customers);
+    }  
 }
+        //->where('order.order_date', '<=',$new )
+        //->where('order.order_date', '<=',$new )

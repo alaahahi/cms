@@ -68,6 +68,7 @@
                         <th><?php echo e(__('voyager::generic.admin_check')); ?></th>
                         <th><?php echo e(__('voyager::generic.date')); ?></th>
                         <th><?php echo e(__('voyager::generic.number')); ?></th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>

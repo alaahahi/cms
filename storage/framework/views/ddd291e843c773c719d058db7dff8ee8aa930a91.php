@@ -28,6 +28,7 @@
                     data-get-items-field="<?php echo e($row->field); ?>"
                     <?php if(!is_null($dataTypeContent->getKey())): ?> data-id="<?php echo e($dataTypeContent->getKey()); ?>" <?php endif; ?>
                     data-method="<?php echo e(!is_null($dataTypeContent->getKey()) ? 'edit' : 'add'); ?>"
+                    <?php if($row->required == 1): ?> required <?php endif; ?>
                 >
                     <?php
                         $model = app($options->model);
@@ -163,6 +164,7 @@
                         data-label="<?php echo e($options->label); ?>"
                         data-error-message="<?php echo e(__('voyager::bread.error_tagging')); ?>"
                     <?php endif; ?>
+                    <?php if($row->required == 1): ?> required <?php endif; ?>
                 >
 
                         <?php

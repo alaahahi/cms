@@ -89,7 +89,7 @@ trait HandlesStandardBatchOperations
             $this->beforeSave($request, $entity);
 
             $this->performUpdate(
-                $request, $entity, $request->input("resources.{$entity->getKey()}")
+                $request, $entity, $request->input("resources.{$entity->{$this->keyName()}}")
             );
 
             $entity = $entity->fresh($requestedRelations);
@@ -151,7 +151,7 @@ trait HandlesStandardBatchOperations
 
         $requestedRelations = $this->relationsResolver->requestedRelations($request);
 
-        $query = $this->buildBatchDestroyFetchQuery($request, $requestedRelations);
+        $query = $this->buildBatchDestroyFetchQuery($request, $requestedRelations, $softDeletes);
         $entities = $this->runBatchDestroyFetchQuery($request, $query);
 
         foreach ($entities as $entity) {
@@ -189,11 +189,15 @@ trait HandlesStandardBatchOperations
      *
      * @param Request $request
      * @param array $requestedRelations
+     * @param bool $softDeletes
      * @return Builder
      */
-    protected function buildBatchDestroyFetchQuery(Request $request, array $requestedRelations): Builder
+    protected function buildBatchDestroyFetchQuery(Request $request, array $requestedRelations, bool $softDeletes): Builder
     {
-        return $this->buildBatchFetchQuery($request, $requestedRelations);
+        return $this->buildBatchFetchQuery($request, $requestedRelations)
+            ->when($softDeletes, function ($query) {
+                $query->withTrashed();
+            });
     }
 
     /**

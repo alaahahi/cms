@@ -17,7 +17,7 @@
             <?php echo $__env->make('voyager::partials.bulk-delete', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', app($dataType->model_name))): ?>
-            <?php if(isset($dataType->order_column) && isset($dataType->order_display_column)): ?>
+            <?php if(!empty($dataType->order_column) && !empty($dataType->order_display_column)): ?>
                 <a href="<?php echo e(route('voyager.'.$dataType->slug.'.order')); ?>" class="btn btn-primary btn-add-new">
                     <i class="voyager-list"></i> <span><?php echo e(__('voyager::bread.order')); ?></span>
                 </a>
@@ -86,7 +86,7 @@
                                         <?php endif; ?>
                                         <?php $__currentLoopData = $dataType->browseRows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <th>
-                                            <?php if($isServerSide && $row->type !== 'relationship'): ?>
+                                            <?php if($isServerSide && in_array($row->field, $sortableColumns)): ?>
                                                 <a href="<?php echo e($row->sortByUrl($orderBy, $sortOrder)); ?>">
                                             <?php endif; ?>
                                             <?php echo e($row->getTranslatedAttribute('display_name')); ?>

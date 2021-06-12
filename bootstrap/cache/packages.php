@@ -11,15 +11,15 @@
       'AsyncWidget' => 'Arrilot\\Widgets\\AsyncFacade',
     ),
   ),
-  'barryvdh/laravel-dompdf' => 
+  'carlos-meneses/laravel-mpdf' => 
   array (
     'providers' => 
     array (
-      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
+      0 => 'Meneses\\LaravelMpdf\\LaravelMpdfServiceProvider',
     ),
     'aliases' => 
     array (
-      'PDF' => 'Barryvdh\\DomPDF\\Facade',
+      'PDF' => 'Meneses\\LaravelMpdf\\Facades\\LaravelMpdf',
     ),
   ),
   'facade/ignition' => 

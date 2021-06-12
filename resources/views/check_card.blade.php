@@ -68,6 +68,7 @@
                         <th>{{ __('voyager::generic.admin_check') }}</th>
                         <th>{{ __('voyager::generic.date') }}</th>
                         <th>{{ __('voyager::generic.number') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>
