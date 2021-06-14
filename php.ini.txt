@@ -1,0 +1,16 @@
+session.cache_expire=18000
+session.gc_maxlifetime=144000
+date.timezone=Asia/Baghdad
+
+
+Try this
+
+1) In httpd.conf (\xampp\apache\conf\httpd.conf) , add the following line:
+
+SetEnv TZ Asia/Baghdad
+2) Edit php.ini (\xampp\php\php.ini) date.timezone value in [Date] section:
+
+date.timezone = "Asia/Baghdad"
+3) In my.ini (\xampp\mysql\bin\my.ini) add or replace
+
+default-time-zone = "Asia/Baghdad"

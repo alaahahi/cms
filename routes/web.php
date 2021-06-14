@@ -41,7 +41,12 @@ Route::delete('remove_clients/{id?}', [CustomerController::class, 'remove_client
 Route::get('check_card/{q?}', [CustomerController::class, 'check_card'])->name('check_card');
 Route::get('check_card_no/{q?}', [CustomerController::class, 'check_card_no'])->name('check_card_no');
 Route::get('card_service/{q?}', [CustomerController::class, 'card_service'])->name('card_service');
-Route::get('submit_service/{client?}/{services?}', [CustomerController::class, 'submit_service'])->name('submit_service');
+Route::get('submit_service/{client?}/{services?}/{q?}', [CustomerController::class, 'submit_service'])->name('submit_service');
+
 Route::get('report/card/{q?}', [CustomerController::class, 'card'])->name('card');
 Route::get('generatePDF_card/{q?}', [CustomerController::class, 'generatePDF_card'])->name('generatePDF_card');
 Route::get('cards_from_to/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'cards_from_to'])->name('cards_from_to');
+
+Route::get('report/service/{q?}', [CustomerController::class, 'service'])->name('service');
+
+Route::get('report/check_service/{type?}', [CustomerController::class, 'check_service'])->name('check_service');

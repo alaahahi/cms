@@ -1,6 +1,5 @@
 @extends('voyager::master')
 @section('content')
-
 <style>
 #pageMessages {
   position: fixed;
@@ -142,9 +141,6 @@
     </form>
   </div>
 </div>
-
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -155,7 +151,6 @@
     var table;
     $('body').on('click', '.add', function () { 
         var q = $('#card_number_input').val();
-
         $.ajax({
             type: "GET",
             url:"{{ route('check_card_no') }}/"+q ,
@@ -218,12 +213,14 @@
             
         });  
     });
+
     $('body').on('click', '.service_action', function () {
     Item_client = $(this).data('client');
     Item_services = $(this).data('services');
+    q = $('#card_number_input').val();
     $.ajax({
             type: "GET",
-            url:"{{ route('submit_service') }}/"+Item_client+"/"+Item_services,
+            url:"{{ route('submit_service') }}/"+Item_client+"/"+Item_services+"/"+q,
             success: function (client) {
                 $('.data-table').DataTable().ajax.reload();
                 $('.modal-product').modal('hide');

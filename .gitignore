@@ -1,0 +1,9 @@
+
+storage/framework/cache/
+*.log
+storage/framework/
+storage/framework/cache/data/6d/35/6d35639146364ac5f097264ad5d63d9a85308ee0
+storage/framework/cache/data/6d/35/6d35639146364ac5f097264ad5d63d9a85308ee0
+storage/logs/laravel.log
+storage/framework/views/e2be7bc326b869ab54902b477882189f2478999b.php
+storage/framework/views/dfd096666a681938759b8b7610ea259e69fd1b56.php

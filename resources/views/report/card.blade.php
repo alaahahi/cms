@@ -32,7 +32,7 @@
         <div class="col-md-12 mt-5">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3><strong>Reports</strong></h3>
+                    <h3><strong>Reports Cards</strong></h3>
                 </div>
             </div>
            
@@ -356,7 +356,6 @@
     $('body').on('click', '.download_cards', function () 
     {
     var type  = $('#card_type_select').find(":selected").val();
-    alert(type);
     var from = $('#date-from').val();
     var to = $('#date-to').val();
     if (from == "") from =0;
