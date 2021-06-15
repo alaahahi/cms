@@ -49,4 +49,4 @@ Route::get('cards_from_to/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerContr
 
 Route::get('report/service/{q?}', [CustomerController::class, 'service'])->name('service');
 
-Route::get('report/check_service/{type?}', [CustomerController::class, 'check_service'])->name('check_service');
+Route::get('report/check_service/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_service'])->name('check_service');

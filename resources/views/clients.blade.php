@@ -9,8 +9,6 @@
                     <h3><strong>{{ __('voyager::generic.client') }}</strong></h3>
                 </div>
             </div>
-            
-            <!-- <a href="" class="btn btn-primary">Download ALL Order</a> -->
             <div class="row">
             <div class="col-md-6 text-center">
                     <div class="form-group">
@@ -122,9 +120,9 @@
     </form>
   </div>
 </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript">
   $(function () {
 
@@ -219,13 +217,16 @@ $.ajaxSetup({
 
 $('body').on('click', '.delete', function () {
             var Item_id = $(this).data('id');
-$.ajax({
+            if (confirm('Are you sure to delete this client')) {
+                $.ajax({
         type: 'DELETE' ,
         url:"{{ route('remove_clients') }}/"+Item_id,
         dataType: 'json',
         success:function(data){
             $('.data-table').DataTable().ajax.reload();
         }});
+} 
+
     });
 </script>
 @endsection 

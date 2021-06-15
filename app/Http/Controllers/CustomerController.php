@@ -19,11 +19,14 @@ class CustomerController extends Controller
 {
     public function clients(Request $request)
     {
+        $date = date('Y-m-d h:i');
         $data = DB::table('client')
         ->join('card_user', 'card_user.client_id', '=', 'client.id')
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         ->where('client.deleted_at', '=',  null )
+        ->where('cards.is_valid', '=', 1 )
+        ->where('card_user.end_active', '>=',   $date  )
         ->select(['client.id','cards.card_number','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
         ->get();       
        if ($request->ajax()) 
@@ -90,6 +93,8 @@ class CustomerController extends Controller
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         ->where('client.id', '=',$id)
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null )
         ->select(['client.id','cards.card_number','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title' ,'client.birth_date'])
         ->first();
         return response()->json($data);       
@@ -97,13 +102,16 @@ class CustomerController extends Controller
     
     public function check_card(Request $request,$q="")
     { 
+        $date = date('Y-m-d');
         $data = DB::table('services')
         ->join('service_client', 'service_client.service_id', '=', 'services.id')
         ->join('client', 'client.id', '=', 'service_client.client_id')
         ->join('users', 'users.id', '=', 'service_client.user_chack')
         ->join('cards', 'cards.card_number', '=', 'service_client.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('card_user', 'card_user.card_id', '=', 'cards.id')
         ->where('client.deleted_at', '=',  null )
+        ->where('card_user.end_active', '>',   $date  )
         ->where('cards.card_number', '=', $q )
         ->select(['client.id','services.title','service_client.date','service_client.number','users.name','cards.card_number'])
         ->get();      
@@ -115,12 +123,14 @@ class CustomerController extends Controller
     }
     public function check_card_no($q)
     { 
+        $date = date('Y-m-d');
         $data = DB::table('client')
         ->join('card_user', 'card_user.client_id', '=', 'client.id')
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         //->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
         //->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->where('card_user.end_active', '>',   $date  )
         ->where('cards.is_valid', '=', 1 )
         ->where('client.deleted_at', '=',  null )
         ->where('cards.card_number', '=', $q )
@@ -136,6 +146,8 @@ class CustomerController extends Controller
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
         ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null )
         ->where('cards.card_number', '=', $q )
         ->select(['services.title','services.id as services_id','client.id as client_id'])
         ->get();
@@ -205,7 +217,9 @@ class CustomerController extends Controller
         $customers_temp = DB::table('client')
         ->join('card_user', 'card_user.client_id', '=', 'client.id')
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
-        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id');
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null );
         if($type=="started")
         {
         $customers_result=$customers_temp
@@ -259,6 +273,8 @@ class CustomerController extends Controller
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
         ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null )
         ->where('cards.card_number', '=', $q )
         ->select(['services.title','services.id as services_id','client.id as client_id'])
         ->get();
@@ -269,8 +285,13 @@ class CustomerController extends Controller
       }
         return view('report/service',compact('data'));
     }
-    public function check_service(Request $request,$type="")
+    public function check_service(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
     { 
+        //if ($from == 0) $from ="2021-06-01";
+        //if ($to == 0) $to =date('Y-m-d');
+        $new = date('Y-m-d');
+        $type_ar="";
+        $form_to_data="";
         $data_temp = DB::table('services')
         ->join('service_client', 'service_client.service_id', '=', 'services.id')
         ->join('client', 'client.id', '=', 'service_client.client_id')
@@ -279,15 +300,27 @@ class CustomerController extends Controller
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         ->where('cards.is_valid', '=', 1 )
         ->where('client.deleted_at', '=',  null );
-        //->select("*")->get();
-        //return response()->json($data);  
-        if($type==0 || $type=="undefined")
+        if($from !=0 && $to!=0)
         {
-            $data=$data_temp;
+        $form_to_data= $data_temp->whereBetween('date', [$from, $to]);  
         }
         else
         {
-            $data=$data_temp->where('services.id', '=', $type );
+        $form_to_data=$data_temp;
+        }
+        if($type==0 || $type=="undefined")
+        {
+            $data= $form_to_data;
+            $type_ar=" جميع الخدمات  لتاريخ".$new;
+            
+        }
+        else
+        {
+            $data= $form_to_data->where('services.id', '=', $type );
+            if(!empty($data->first())){
+                $type_ar=" جميع الخدمات  المقدمة من ".$data->select(['services.title'])->first()->title;
+            }
+           
         }
 
         $data_service=$data->select(['services.title','service_client.date','card_type.title as type','cards.card_number','service_client.number','users.name'])
@@ -298,7 +331,16 @@ class CustomerController extends Controller
        if ($request->ajax()) 
        {
         return Datatables::of($data_service)->make(true);
-     }
+       }
+       if($pdf_download){
+        $customers=$data_service;
+        if(!empty($customers->first())){
+        $pdf = PDF::loadView('report/service_from_to_pdf',compact('customers','new','type_ar'));
+        return $pdf->download(' '.$new.'..pdf');
+        }
+        else 
+        return response()->json("No Services");
+        }
         return view('check_card',compact('data'));
     }
 }

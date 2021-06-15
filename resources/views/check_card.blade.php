@@ -141,13 +141,14 @@
     </form>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript">
   $(function () {
     $("#success-alert").hide();
     $("#danger-alert").hide();
+    $('.data-table').hide();
     var table;
     $('body').on('click', '.add', function () { 
         var q = $('#card_number_input').val();
@@ -188,6 +189,8 @@
                 window.setTimeout(function () { 
                     $('.modal-product').modal('show');
                 }, 5050); 
+                $('.dataTables_wrapper').show();
+                $('.data-table').show();
                 table = $('.data-table').DataTable({
                             ajax: "{{ route('check_card') }}/"+q ,
                                     columns: [
@@ -200,9 +203,13 @@
                             });
                     }
             else {
+                $('.data-table').hide();
+                $('.dataTables_wrapper').hide();
                 $("#danger-alert").alert();
                 $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
                 $("#danger-alert").slideUp(500);
+           
+      
                 });
             }
             },

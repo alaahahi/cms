@@ -1,3 +1,4 @@
+@can('browse_media')
 @extends('voyager::master')
 @section('content')
 <style>
@@ -202,9 +203,9 @@
   </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/jquery.validate.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 
 <script type="text/javascript">
   $(function () {
@@ -365,3 +366,6 @@
 });
 </script>
 @endsection 
+@else
+Not have permissions To Veiw
+@endcan
