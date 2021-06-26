@@ -127,5 +127,6 @@ return [
     'admin_check'            => 'Admin Check',
     'date'                   => 'Date',
     'number'                 => 'Number',
-
+    'address'                => 'Address',
+    'rate'                   => 'Rate',
 ];

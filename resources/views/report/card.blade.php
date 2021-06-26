@@ -41,7 +41,7 @@
             <br>
             
             <div class="row">
-                <div class="col-md-6 text-center">           
+                <div class="col-md-5 text-center">           
                     <div class="form-group">
                         <label for="card_number_input">{{ __('voyager::generic.card_number') }}</label>
                         <input  value = "0" type="text" id="card_number_input"  class="form-control mx-sm-3" >
@@ -53,7 +53,13 @@
                     <a href="javascript:void(0)" class="btn btn-primary col-md-12  add">{{ __('voyager::generic.check_card') }}</a>
                     </div>
                 </div>
-                <div class="col-md-3 text-center">
+                <div class="col-md-2 text-center">
+                    <div class="form-group">
+                    <br>
+                    <a href="javascript:void(0)" class="btn btn-success col-md-12 download_order">Download Order</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-center">
                     <div class="form-group">
                     <br>
                     <a href="javascript:void(0)" class="btn btn-success col-md-12 download">Download</a>
@@ -306,7 +312,11 @@
     var q = $('#card_number_input').val();
     window.location.href = "{{ route('generatePDF_card') }}/"+q ;
     });
-
+    $('body').on('click', '.download_order', function () 
+    {
+    var q = $('#card_number_input').val();
+    window.location.href = "{{ route('generatePDF_card_info') }}/"+q ;
+    });
     $('#card_type_select').on('change', function() {
     if( $(this).find(":selected").val() === "all"  ){
         $('#date-from').prop('disabled', true);

@@ -54,6 +54,7 @@ class CustomerController extends Controller
          'birth_date'=> $request->birth_date,
          'card_type_id'=> $request->card_type_id,
          'card_number'=> $request->card_number,
+         'address'=> $request->address,
          'strat_active'=> $request->strat_active,
         ];
         if($id == 0 ){
@@ -67,7 +68,7 @@ class CustomerController extends Controller
             $day = DB::table('card_type')->where('card_type.id', '=', $item['card_type_id'] )->select('validation')->first()->validation;
             $day_str="+$day days";
             $end_active =date('Y-m-d',strtotime($day_str,strtotime($item['strat_active'])));
-            DB::table('card_user')->insert(array('card_id' => DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=>$userId,'created_at'=>$date)),'client_id' =>DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date)),'strat_active' => $item['strat_active'],'author_id'=>$userId,'end_active' =>  $end_active,'created_at'=>$date));
+            DB::table('card_user')->insert(array('card_id' => DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=>$userId,'created_at'=>$date)),'client_id' =>DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'address'=>$item['address'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date)),'strat_active' => $item['strat_active'],'author_id'=>$userId,'end_active' =>  $end_active,'created_at'=>$date));
             return response()->json('Added Client');
         }
         else
@@ -76,7 +77,7 @@ class CustomerController extends Controller
                 'full_name' => 'required',
                 'phone' => 'required',
                 'birth_date' => 'required']);
-        DB::table('client')->where('id',$id)->update(['full_name' => $item['full_name'],'phone' => $item['phone'],'birth_date'=>$item['birth_date'],'updated_at'=>$date]);
+        DB::table('client')->where('id',$id)->update(['full_name' => $item['full_name'],'phone' => $item['phone'],'birth_date'=>$item['birth_date'],'address'=>$item['address'],'updated_at'=>$date]);
         return response()->json('Update client');
         }
         //return redirect('path')->with(['message' => "Product Update data Successfully", 'alert-type' => 'success']);
@@ -207,7 +208,29 @@ class CustomerController extends Controller
         else 
         return response()->json("No Cards");
 
-    }  
+    }
+    public function generatePDF_card_info($q="")
+    {
+        $new = date('Y-m-d');
+        $customers = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.card_number', '=', $q )
+        ->select('client.full_name','client.address','client.birth_date','cards.card_number','card_user.strat_active','card_user.end_active','client.phone','card_type.title as type')
+        ->get();
+        //return response()->json($customers);
+        if(!empty($customers->first())){
+          return view('report/card_info_pdf',compact('customers','new'));
+        $pdf = PDF::loadView('report/card_info_pdf',compact('customers','new'));
+        return $pdf->download($q.' '.$new.'..pdf');
+        }
+        else 
+        return response()->json("No Cards");
+
+    } 
     public function cards_from_to(Request $request,$from=0,$to=0,$type="",$pdf_download=false)
     {
         $new = date('Y-m-d');

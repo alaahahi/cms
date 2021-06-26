@@ -45,6 +45,8 @@ Route::get('submit_service/{client?}/{services?}/{q?}', [CustomerController::cla
 
 Route::get('report/card/{q?}', [CustomerController::class, 'card'])->name('card');
 Route::get('generatePDF_card/{q?}', [CustomerController::class, 'generatePDF_card'])->name('generatePDF_card');
+Route::get('generatePDF_card_info/{q?}', [CustomerController::class, 'generatePDF_card_info'])->name('generatePDF_card_info');
+Route::get('generatePDF_card_order/{q?}', [CustomerController::class, 'generatePDF_card_order'])->name('generatePDF_card_order');
 Route::get('cards_from_to/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'cards_from_to'])->name('cards_from_to');
 
 Route::get('report/service/{q?}', [CustomerController::class, 'service'])->name('service');

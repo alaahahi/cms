@@ -1,6 +1,11 @@
 @extends('voyager::master')
 @section('content')
+<style>
 
+.mr {
+    width: 90%; 
+}
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-12 mt-5">
@@ -85,6 +90,12 @@
                 <input type="date" class="form-control" name="birth_date" id="birth_date" require>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                <label for="address" class="col-form-label">{{ __('voyager::generic.address') }}:</label>
+                <input type="text" class="form-control" name="address" id="address" >
+                </div>
+            </div>
         </div>
         <div class="row">
         <div class="col-md-6">
@@ -104,12 +115,19 @@
             </div>
         </div>
         <div class="row">
+          
             <div class="col-md-6">
                 <div class="form-group">
                 <label for="strat_active" class="col-form-label">{{ __('voyager::generic.strat_active') }}:</label>
                 <input type="date" class="form-control" name="strat_active" id="strat_active" require>
                 </div>
             </div>
+            <div class="col-md-6 text-center">
+                    <div class="form-group">
+                    <br>
+                    <a href="javascript:void(0)" class="btn btn-success col-md-12 download">Download Order Pdf</a>
+                    </div>
+                </div>
         </div>
         </div>
       </div>
@@ -138,11 +156,17 @@
             {data: 'action', name: 'action'},
         ]
     });
+    $('body').on('click', '.download', function () 
+    {
+    var q = $('#card_number_input').val();
+    window.location.href = "{{ route('generatePDF_card_order') }}/"+q ;
+    });
     $('body').on('click', '.add', function () { 
         $("#card_type").show();
         $("#card_type_id").hide();
         $('#full_name').val("");
         $('#phone').val("");
+        $('#address').val("");
         $('#card_number').val("").prop('disabled', false);
         $('#strat_active').val("").prop('disabled', false);
         $('#birth_date').val("");
@@ -166,6 +190,7 @@
                 $('#strat_active').val(client.strat_active).prop('disabled', true);
                 $('#birth_date').val(client.birth_date);
                 $('#card_type_id').val(client.title);
+                $('#address').val(client.address);
                 $("#card_type").hide();
                 $("#card_type_id").show();
                 $('#upload-image-form').attr('data-id' , client.id);
