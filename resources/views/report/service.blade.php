@@ -56,7 +56,7 @@
                 <div class="col-md-2 text-center">           
                     <div class="form-group">
                     <label for="card_number_input">Service</label>
-                    <select  id="service_input" class="form-control select2-ajax select2-hidden-accessible" name="services_id" data-get-items-route="http://localhost/cms/public/admin/servicecardtype/relation" data-get-items-field="servicecardtype_belongsto_service_relationship" data-method="add" data-select2-id="4" tabindex="-1" aria-hidden="true">
+                    <select  id="service_input" class="form-control select2-ajax select2-hidden-accessible" name="services_id" data-get-items-route="https://savingservices.net/cms/public/admin/servicecardtype/relation" data-get-items-field="servicecardtype_belongsto_service_relationship" data-method="add" data-select2-id="4" tabindex="-1" aria-hidden="true">
                     <option value="0" >All</option>
                     </select>
                     </div>
