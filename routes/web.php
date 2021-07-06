@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CalendarDateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,4 +52,12 @@ Route::get('cards_from_to/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerContr
 
 Route::get('report/service/{q?}', [CustomerController::class, 'service'])->name('service');
 
+
+
 Route::get('report/check_service/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_service'])->name('check_service');
+
+//Calendar
+Route::get('calendar/action', [CalendarDateController::class, 'action'])->name('action');
+Route::get('calendar/{q?}', [CalendarDateController::class, 'calendar'])->name('calendar');
+Route::get('all_calendar/{q?}', [CalendarDateController::class, 'all_calendar'])->name('all_calendar');
+Route::post('action', [CalendarDateController::class, 'action'])->name('action');

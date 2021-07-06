@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Spending extends Model
+class Event extends Model
 {
-    protected $table = 'spending';
+    protected $fillable = ['title','start','end'];
+    protected $table = 'event';
     use HasFactory;
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-    	protected $fillable = [
-		'title', 'start', 'end'
-	];
 }
