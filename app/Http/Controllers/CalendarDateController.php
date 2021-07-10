@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Order;
-use App\Models\Order_details;
-use App\Models\App_config;
+use App\Models\Services;
+use App\Models\Cards;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -48,7 +48,9 @@ class CalendarDateController extends Controller
     			$event = Event::create([
     				'title'		=>	$request->title,
     				'start'		=>	$request->start,
-    				'end'		=>	$request->end
+    				'end'		=>	$request->end,
+					'service_id'=>	$request->service,
+					'client_id'	=>	$request->clinet
     			]);
 
     			return response()->json($event);
@@ -73,4 +75,19 @@ class CalendarDateController extends Controller
     		}
     	}
     }
+	public function all_clinet(Request $request)
+    {
+		$data = Client::all();
+		return response()->json($data);
+	}
+	public function all_card(Request $request)
+    {
+		$data = Cards::all();
+		return response()->json($data);
+	}
+	public function all_services(Request $request)
+    {
+		$data = Services::all();
+		return response()->json($data);
+	}
 }

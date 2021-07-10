@@ -1,18 +1,31 @@
 
-var data,title,date_type,date_status,medical_review_type,doctor_name,note,phone,mobile, _start,_end,x,x1,color,folder;
-var url_all_date_type= url+'all_date_type';
+var service,clinet,data,title,date_type,date_status,medical_review_type,doctor_name,note,phone,mobile, _start,_end,x,x1,color,folder;
+var url_all_clinet= url+'all_clinet';
+//var url_all_card = url+'all_card';
+var url_all_services = url+'all_services';
 $.ajaxSetup({
     headers:{
         'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
     }
 });
 $(document).ready(function () {  
-        $.getJSON(url_all_date_type, function (data) {
-        $.each(data, function (index, value) {
-        $('#select').append('<option value="' + value.id + '">' + value.title + '</option>');
-                                                });
-                                        });
-
+            $.getJSON(url_all_clinet, function (data) {
+            $.each(data, function (index, value) {
+            $('#all_clinet').append('<option value="' + value.id + '">' + value.full_name + '</option>');
+             });
+            });
+            
+            //$.getJSON(url_all_card, function (data) {
+            //$.each(data, function (index, value) {
+            //$('#all_card').append('<option value="' + value.id + '">' + value.card_number + '</option>');
+             //});
+            //});
+            
+            $.getJSON(url_all_services, function (data) {
+                $.each(data, function (index, value) {
+                $('#all_services').append('<option value="' + value.id + '">' + value.title + '</option>');
+                 });
+                });
         $( "#edit" ).on('click',function()  {
             editEvent(eventedit,id);
              $('#Modal').modal('hide'); 
@@ -40,29 +53,19 @@ $(document).ready(function () {
 });
                 $('#save').on('click',function() 
                 {
-    
-                    date_type=$('#select').val();
-                    full_name =$('#full_name').val();
+                    service=$('#all_services').val();
+                    clinet =$('#all_clinet').val();
                     note=$('#Note_text').val();
-                    phone =$('#phone').val();
-                    mobile =$('#mobile').val();
-                    folder =$('#folder').val();
-                    title =full_name+" - "+folder+" - "+phone+" - "+mobile+" - "+$('#select').find('option:selected').text() ;
-                        if (full_name) {
+                    title =$('#all_clinet').find('option:selected').text()+" - "+$('#all_services').find('option:selected').text()+" - "+note;
+                        if (clinet) {
                     var eventData = {
-                        title: title,
-                        full_name:full_name,
-                        date_type:date_type,
-                        date_status:date_status,
-                        doctor_name:doctor_name,
-                        medical_review_type:medical_review_type,
+                        service: service,
+                        clinet:clinet,
                         note:note,
+                        color:$('#date_status').find("option:selected").css('backgroundColor'),
                         start: _start,
                         end: _end,
-                        phone:phone,
-                        folder:folder,
-                        mobile:mobile,
-                        color:$('#date_status').find("option:selected").css('backgroundColor')
+                        title:title
                     };
                     addNewEvent(eventData, function () { $('#calendar').fullCalendar('unselect'); });
                     $('#Modal').modal('hide');
@@ -92,7 +95,7 @@ $(document).ready(function () {
 				
 				
             },
-            slotDuration: '00:12:00',
+       
             navLinks: true, // can click day/week names to navigate views
             weekNumbers: false,
             weekNumbersWithinDays: true,
@@ -135,13 +138,10 @@ $(document).ready(function () {
             
             events: url+'all_calendar',
             
-
+   
             eventClick: function (event, jsEvent, view) {
-                    $('#select').val(event.date_type);
-                    $('#full_name').val(event.full_name);
-                    $('#phone').val(event.phone);
-                    $('#mobile').val(event.mobile);
-                    $('#folder').val(event.folder);
+                    $('#all_services').val(event.service);
+                    $('#all_clinet').val(event.clinet);
                     $('#Note_text').val(event.note);
                     btnModelControl("edit");
                     $("#ModalTitle").text("Date Informtion "+event.full_name);
@@ -191,8 +191,8 @@ $(document).ready(function () {
             
                 x=1;
                 var date = $.fullCalendar.moment(date);
-$('#calendar').fullCalendar('changeView', 'agendaDay');
-$('#calendar').fullCalendar('gotoDate',date);
+                $('#calendar').fullCalendar('changeView', 'agendaDay');
+                $('#calendar').fullCalendar('gotoDate',date);
             
             }
             else{
@@ -223,30 +223,23 @@ $('#calendar').fullCalendar('gotoDate',date);
     }
 
     function editEvent(event, id) {
-        date_type=$('#select').val();
-        date_status=$('#date_status').val();
-        doctor_name=$('#doctor_name').val();
-        medical_review_type=$('#medical_review_type').val();
-        full_name =$('#full_name').val();
+            
+        service=$('#all_services').val();
+        clinet =$('#all_clinet').val();
         note=$('#Note_text').val();
-        phone =$('#phone').val();
-        mobile =$('#mobile').val();
-        folder =$('#folder').val();
-        title =full_name+" - "+folder+" - "+phone+" - "+mobile+" - "+$('#select').find('option:selected').text() +" - "+$('#doctor_name').find('option:selected').text()+" - "+$('#medical_review_type').find('option:selected').text();
-        if(!full_name) alert("Please Enter name");
+        title =$('#all_clinet').find('option:selected').text()+" - "+$('#all_services').find('option:selected').text()+" - "+note;
+        if(!clinet) alert("Please Enter name");
         else{
         $.ajax({
             url: url + 'edit/' + id,
             type: 'post',
             dataType: 'json',
             data:{
-            title: title,color:$('#date_status').find("option:selected").css('backgroundColor'),
-            full_name:full_name,
-            date_type:date_type,
-            date_status:date_status,
-            doctor_name:doctor_name,
-            medical_review_type:medical_review_type,
-            note:note,phone:phone
+            title: title,
+            color:$('#date_status').find("option:selected").css('backgroundColor'),
+            service:service,
+            clinet:clinet,
+            note:note,
             },
             success: function () {
                 refresh();
@@ -283,24 +276,26 @@ $('#calendar').fullCalendar('gotoDate',date);
     }
     function addNewEvent(eventData, callback) {
         title=eventData["title"];
-        full_name=eventData["full_name"];
+        clinet=eventData["clinet"];
+        service=eventData["service"];
+        note = eventData["note"];
         start=JSON.stringify(eventData["start"]).slice(1,-1);
         end=JSON.stringify(eventData["end"]).slice(1,-1);
-        date_type = eventData["date_type"];
-        date_status = eventData["date_status"];
-        doctor_name = eventData["doctor_name"];
-        medical_review_type = eventData["medical_review_type"];
-        note = eventData["note"];
-        color=eventData["color"];
-        phone=eventData["phone"];
-        mobile=eventData["mobile"];
-        folder=eventData["folder"];
         type="add";
+        debugger;
         $.ajax({
             url: url+"action",
             type: 'post',
             dataType: 'json',
-            data:{type:type,title: title,full_name:full_name,folder:folder,start:start,end:end,date_type:date_type,date_status:date_status,doctor_name:doctor_name,medical_review_type:medical_review_type,note:note,color:color,phone:phone,mobile:mobile},
+            data:{
+                title:title,
+                clinet:clinet,
+                service:service,
+                note:note,
+                type:type,
+                start:start,
+                end:end
+            },
             success: function () {
                 refresh();
             },
@@ -334,15 +329,9 @@ $('#calendar').fullCalendar('gotoDate',date);
       });
 });
     function modelReset (){
-        $('#full_name').val('');
-        $('#Note_text').val('');
-        $('#phone').val('');
-        $('#mobile').val('');
-        $('#folder').val('');
-        $('#doctor_name').val(1);
-        $('#date_status').val(1);
-        $('#select').val(1);
-        $('#medical_review_type').val(1);
+        $('#note').val('');
+        $('#all_services').val(1);
+        $('#all_clinet').val(1);
     }
     function btnModelControl (btnModelControl){
         if(btnModelControl=="new"){
