@@ -279,6 +279,7 @@ $(document).ready(function () {
         clinet=eventData["clinet"];
         service=eventData["service"];
         note = eventData["note"];
+        color=eventData["color"];
         start=JSON.stringify(eventData["start"]).slice(1,-1);
         end=JSON.stringify(eventData["end"]).slice(1,-1);
         type="add";
@@ -294,7 +295,8 @@ $(document).ready(function () {
                 note:note,
                 type:type,
                 start:start,
-                end:end
+                end:end,
+                color:color
             },
             success: function () {
                 refresh();
