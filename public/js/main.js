@@ -62,7 +62,7 @@ $(document).ready(function () {
                         service: service,
                         clinet:clinet,
                         note:note,
-                        color:$('#date_status').find("option:selected").css('backgroundColor'),
+                        color:$('#all_services').find("option:selected").css('backgroundColor'),
                         start: _start,
                         end: _end,
                         title:title
@@ -236,7 +236,7 @@ $(document).ready(function () {
             dataType: 'json',
             data:{
             title: title,
-            color:$('#date_status').find("option:selected").css('backgroundColor'),
+            color:$('#all_services').find("option:selected").css('backgroundColor'),
             service:service,
             clinet:clinet,
             note:note,
