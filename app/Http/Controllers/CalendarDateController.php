@@ -24,7 +24,7 @@ class CalendarDateController extends Controller
 		if($request->ajax())
     	{
     		$data = Event::all()
-                       ->get(['id', 'title', 'start', 'end']);
+                       ->get(['id', 'title', 'start', 'end','color']);
             return response()->json($data);
     	}
     	return view('calendar');
@@ -35,7 +35,7 @@ class CalendarDateController extends Controller
     	{
     		$data =  Event::whereDate('start', '>=', $request->start)
 			->whereDate('end',   '<=', $request->end)
-			->get(['id', 'title', 'start', 'end']);
+			->get(['id', 'title', 'start', 'end','color']);
             return response()->json($data);
     	}
     }
@@ -50,7 +50,8 @@ class CalendarDateController extends Controller
     				'start'		=>	$request->start,
     				'end'		=>	$request->end,
 					'service_id'=>	$request->service,
-					'client_id'	=>	$request->clinet
+					'client_id'	=>	$request->clinet,
+					'color'		=>	$request->color
     			]);
 
     			return response()->json($event);
