@@ -318,7 +318,7 @@ $(document).ready(function () {
         if (isSearch) {
             isSearching = true;
         }
-        //$('#calendar').fullCalendar('refetchEvents');
+        $('#calendar').fullCalendar('refetchEvents');
       
     }
 
