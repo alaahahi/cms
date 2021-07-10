@@ -23,7 +23,7 @@ $(document).ready(function () {
             
             $.getJSON(url_all_services, function (data) {
                 $.each(data, function (index, value) {
-                $('#all_services').append('<option value="' + value.id + '">' + value.title + '</option>');
+                $('#all_services').append('<option style="background-Color:'+value.color+'" value="' + value.id + '">' + value.title + '</option>');
                  });
                 });
         $( "#edit" ).on('click',function()  {
