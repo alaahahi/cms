@@ -26,6 +26,13 @@ $(document).ready(function () {
                 $('#all_services').append('<option style="background-Color:'+value.color+'" value="' + value.id + '">' + value.title + '</option>');
                  });
                 });
+                $( "#delete" ).on('click',function()  {
+                    deleteEvent(id);
+                     $('#Modal').modal('hide'); 
+                     $( "#delete" ).hide();
+                     $( "#edit" ).hide();
+                     modelReset ();
+                    });
         $( "#edit" ).on('click',function()  {
             editEvent(eventedit,id);
              $('#Modal').modal('hide'); 
@@ -144,7 +151,7 @@ $(document).ready(function () {
                     $('#all_clinet').val(event.clinet);
                     $('#Note_text').val(event.note);
                     btnModelControl("edit");
-                    $("#ModalTitle").text("Date Informtion "+event.full_name);
+                    $("#ModalTitle").text("Date Informtion "+event.clinet);
                      id=event.id;
                     eventedit=event;
                     return;
@@ -227,19 +234,22 @@ $(document).ready(function () {
         service=$('#all_services').val();
         clinet =$('#all_clinet').val();
         note=$('#Note_text').val();
+        type="update";
         title =$('#all_clinet').find('option:selected').text()+" - "+$('#all_services').find('option:selected').text()+" - "+note;
         if(!clinet) alert("Please Enter name");
         else{
         $.ajax({
-            url: url + 'edit/' + id,
+            url: url+"action",
             type: 'post',
             dataType: 'json',
             data:{
+            id:id,
             title: title,
             color:$('#all_services').find("option:selected").css('backgroundColor'),
             service:service,
             clinet:clinet,
             note:note,
+            type:type
             },
             success: function () {
                 refresh();
@@ -259,10 +269,16 @@ $(document).ready(function () {
     }
 
     function deleteEvent(id, callback) {
+        type="delete";
         $.ajax({
-            url: url + 'delete/' + id,
+            url: url+"action",
+            type: 'post',
             dataType: 'json',
-            contentType: 'application/json',
+            data:
+            {
+            id:id,
+            type:type
+            },
             success: function () {
                 refresh();
             },

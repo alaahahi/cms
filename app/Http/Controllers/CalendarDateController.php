@@ -53,7 +53,9 @@ class CalendarDateController extends Controller
 					'client_id'	=>	$request->clinet,
 					'color'		=>	$request->color
     			]);
-
+				$date = date('Y-m-d h:i');
+				$number=DB::table('service_client')->where('service_id', '=',	$request->service)->where('client_id', '=', $request->clinet)->count();
+				DB::table('service_client')->insert(array('service_id' => $request->service,'client_id' => $request->clinet,'date'=>$date,'number'=>$number+1));
     			return response()->json($event);
     		}
 
@@ -61,8 +63,9 @@ class CalendarDateController extends Controller
     		{
     			$event = Event::find($request->id)->update([
     				'title'		=>	$request->title,
-    				'start'		=>	$request->start,
-    				'end'		=>	$request->end
+					'service_id'=>	$request->service,
+					'client_id'	=>	$request->clinet,
+					'color'		=>	$request->color
     			]);
 
     			return response()->json($event);
