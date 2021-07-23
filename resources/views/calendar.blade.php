@@ -183,6 +183,13 @@ i {
 		left: -25px;
 	}
 }
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 30px; /* Margin bottom by footer height */
+}
   </style>
 </head>
 <body>
@@ -273,11 +280,18 @@ i {
 </div>
 </div>
 </div>
-<footer class="footer">
-<nav class=" navbar-expand-custom navbar-mainbg text-center" >
+<footer class="footer" style="position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;">
+      <div >
+      <nav class=" navbar-expand-custom navbar-mainbg text-center" >
         <a class="navbar-brand navbar-logo " href="intellijapp.github.io">Intellij App</a>
 </nav>
+      </div>
     </footer>
+
 <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
