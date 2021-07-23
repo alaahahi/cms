@@ -273,9 +273,11 @@ i {
 </div>
 </div>
 </div>
+<footer class="footer">
 <nav class=" navbar-expand-custom navbar-mainbg text-center" >
         <a class="navbar-brand navbar-logo " href="intellijapp.github.io">Intellij App</a>
 </nav>
+    </footer>
 <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

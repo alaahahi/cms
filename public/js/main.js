@@ -126,6 +126,9 @@ $(document).ready(function () {
                 right: 'month,agendaWeek,agendaDay,listMonth,listDay,listWeek'
             },
             views: {
+                listMonth: { buttonText: 'list month' },
+                listDay: { buttonText: 'list day' },
+                listWeek: { buttonText: 'list week' },
 				month: {
                eventLimit: 1 // adjust to 6 only for agendaWeek/agendaDay
                }, agendaWeek: {
