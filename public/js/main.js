@@ -119,15 +119,6 @@ $(document).ready(function () {
                 }
                 $('#calendar').fullCalendar('unselect');
                 });
-                var calendarTest = document.getElementById('calendar')
-                /* Create function to initialize the correct view */
-                function mobileCheck() {
-                    if (window.innerWidth >= 768 ) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                };
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -135,9 +126,6 @@ $(document).ready(function () {
                 right: 'month,agendaWeek,agendaDay,listMonth,listDay,listWeek'
             },
             views: {
-                listMonth: { buttonText: 'list month' },
-                listDay: { buttonText: 'list day' },
-                listWeek: { buttonText: 'list week' },
 				month: {
                eventLimit: 1 // adjust to 6 only for agendaWeek/agendaDay
                }, agendaWeek: {
