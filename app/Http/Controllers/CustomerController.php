@@ -35,8 +35,7 @@ class CustomerController extends Controller
         return Datatables::of($data)
    
         ->addColumn('action', function ($data) {
-            return '<a  href="javascript:void(0)" data-toggle="tooltip" data-id="'.$data->id.'" class="btn btn-sm btn-primary pull-right edit"><i class="voyager-edit"></i></a>
-               <a href="javascript:void(0)"  data-id="'.$data->id.'" class="btn btn-sm btn-danger pull-right delete"><i class="voyager-trash"></i></a>';
+            return '<a href="javascript:void(0)"  data-id="'.$data->id.'" class="btn btn-sm btn-danger pull-right delete"><i class="voyager-wallet"></i>Pay</a>';
     })
         ->rawColumns(['action'])
         ->make(true);
