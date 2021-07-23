@@ -119,7 +119,15 @@ $(document).ready(function () {
                 }
                 $('#calendar').fullCalendar('unselect');
                 });
-
+                var calendarTest = document.getElementById('calendar')
+                /* Create function to initialize the correct view */
+                function mobileCheck() {
+                    if (window.innerWidth >= 768 ) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -178,7 +186,7 @@ $(document).ready(function () {
                //   }
              // },
             firstDay:6,
-            
+            longPressDelay: 1,
             events: url+'all_calendar',
             
    
