@@ -56,8 +56,8 @@ $(document).ready(function () {
             //$('#all_card').append('<option value="' + value.id + '">' + value.card_number + '</option>');
              //});
             //});
-            $('#all_clinet').on('change', function() {
-                $('#all_services') .find('option').remove().;
+            $('all_clinet').on('change', function() {
+                $('#all_services') .find('option').remove().end();
                 $.getJSON(url_all_services+'/'+$('#all_clinet').val(), function (data) {
                     $.each(data, function (index, value) {
                     $('#all_services').append('<option style="background-Color:'+value.color+'" value="' + value.id + '">' + value.title + '</option>');
