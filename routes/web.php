@@ -62,8 +62,8 @@ Route::get('calendar/{q?}', [CalendarDateController::class, 'calendar'])->name('
 Route::get('all_calendar/{q?}', [CalendarDateController::class, 'all_calendar'])->name('all_calendar');
 Route::post('action', [CalendarDateController::class, 'action'])->name('action');
 
-Route::get('all_clinet', [CalendarDateController::class, 'all_clinet'])->name('all_clinet');
+Route::get('all_clinet/{card_type?}', [CalendarDateController::class, 'all_clinet'])->name('all_clinet');
 Route::get('all_card', [CalendarDateController::class, 'all_card'])->name('all_card');
-Route::get('all_services', [CalendarDateController::class, 'all_services'])->name('all_services');
+Route::get('all_services/{id?}', [CalendarDateController::class, 'all_services'])->name('all_services');
 
 

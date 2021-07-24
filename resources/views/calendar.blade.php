@@ -190,6 +190,10 @@ html {
 body {
   margin-bottom: 30px; /* Margin bottom by footer height */
 }
+.fc-content{
+  color:#fff;
+  font-weight:bold
+}
   </style>
 </head>
 <body>

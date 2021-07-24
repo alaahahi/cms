@@ -79,9 +79,15 @@ class CalendarDateController extends Controller
     		}
     	}
     }
-	public function all_clinet(Request $request)
+	public function all_clinet(Request $request,$card_type)
     {
-		$data = Client::all();
+		$data = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+		->where('card_type.id', '=',$card_type)
+		->select('client.id','client.full_name')
+		->get();
 		return response()->json($data);
 	}
 	public function all_card(Request $request)
@@ -89,9 +95,17 @@ class CalendarDateController extends Controller
 		$data = Cards::all();
 		return response()->json($data);
 	}
-	public function all_services(Request $request)
+	public function all_services(Request $request,$id)
     {
-		$data = Services::all();
+		$user_services = DB::table('services')
+		->join('service_client', 'service_client.service_id', '=', 'services.id')
+		->where('service_client.client_id', '=',$id )
+		->select("services.id")
+		->get();
+		$data = Services::whereNotIn('services.id', DB::table('services')
+		->join('service_client', 'service_client.service_id', '=', 'services.id')
+		->where('service_client.client_id', '=',$id )
+		->select("services.id"))->select('services.id','services.title','color')->get();
 		return response()->json($data);
 	}
 }

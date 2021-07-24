@@ -45,7 +45,7 @@ function test(){
   });
 $(document).ready(function () {  
             setTimeout(function(){ test(); });
-            $.getJSON(url_all_clinet, function (data) {
+            $.getJSON(url_all_clinet+'/'+7, function (data) {
             $.each(data, function (index, value) {
             $('#all_clinet').append('<option value="' + value.id + '">' + value.full_name + '</option>');
              });
@@ -56,12 +56,15 @@ $(document).ready(function () {
             //$('#all_card').append('<option value="' + value.id + '">' + value.card_number + '</option>');
              //});
             //});
-            
-            $.getJSON(url_all_services, function (data) {
-                $.each(data, function (index, value) {
-                $('#all_services').append('<option style="background-Color:'+value.color+'" value="' + value.id + '">' + value.title + '</option>');
-                 });
-                });
+            $('select').on('change', function() {
+                $('#all_services') .find('option').remove().end();
+                $.getJSON(url_all_services+'/'+$('#all_clinet').val(), function (data) {
+                    $.each(data, function (index, value) {
+                    $('#all_services').append('<option style="background-Color:'+value.color+'" value="' + value.id + '">' + value.title + '</option>');
+                     });
+                    });
+              });
+   
                 $( "#delete" ).on('click',function()  {
                     deleteEvent(id);
                      $('#Modal').modal('hide'); 
