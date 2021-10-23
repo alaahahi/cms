@@ -54,9 +54,7 @@ th {
 <p  style="position: absolute;
       left: 159mm;
     top: 38mm;"> {{$customers[0]->phone}}</p>
-<p  style="position: absolute;
-   left: 137mm;
-    top: 46mm"> {{$customers[0]->address}}</p>
+
 <p  style="position: absolute;
  left: 116mm;
     top: 22mm;"> <?php echo $new ?></p>
