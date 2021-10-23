@@ -133,4 +133,5 @@ return [
     'Warning'                => 'Warning!',
     'is_validate_Card'       => 'This Card is validate to',
     'not_validate_Card'      => 'This Card is not expired.',
+    'Services'               => 'Services'
 ];

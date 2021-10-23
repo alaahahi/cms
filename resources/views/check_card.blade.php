@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <h4 class="text-center">Services</h4>
+        <h4 class="text-center">{{ __('voyager::generic.Services') }}</h4>
         <div class="row" id="Services">
         </div>
         </div>

@@ -114,7 +114,7 @@ return [
     'client'                 => 'الزبائن',
     'serives_title'          => 'أسم الخدمة',
     'serives_number'         => 'رقم الخدمة',
-    'admin_check'            => 'المدير المخدم',
+    'admin_check'            => 'مقدم الخدمة',
     'date'                   => 'بتاريخ',
     'number'                 => 'العدد',
     'address'                => 'العنوان',
@@ -123,4 +123,5 @@ return [
     'Warning'                => 'غير صالحة',
     'is_validate_Card'       => 'هذه البطاقة صالحة لغاية ',
     'not_validate_Card'      => 'هذه البطاقة  منتهية الصلاحية',
+    'Services'               => 'الخدمات المقدمة'
 ];
