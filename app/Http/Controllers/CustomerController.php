@@ -195,12 +195,12 @@ class CustomerController extends Controller
         ->where('cards.is_valid', '=', 1 )
         ->where('client.deleted_at', '=',  null )
         ->where('cards.card_number', '=', $q )
-        ->select('client.full_name','client.birth_date','cards.card_number','card_user.strat_active','card_user.end_active','client.phone','card_type.title as type')
+        ->select('client.full_name','client.address','client.birth_date','cards.card_number','card_user.strat_active','card_user.end_active','client.phone','card_type.title as type')
         ->get();
         //return response()->json($customers);
         if(!empty($customers->first())){
         $pdf = PDF::loadView('report/card_info_pdf',compact('customers','new'));
-        return $pdf->download($q.' '.$new.'..pdf');
+        return View('report/card_info_pdf',compact('customers','new'));;
         }
         else 
         return response()->json("No Cards");
