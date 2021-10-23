@@ -184,6 +184,31 @@ class CustomerController extends Controller
       }
         return view('report/card',compact('data'));
     }
+    
+    public function generatePDF_card_order($q="")
+    {
+        $new = date('Y-m-d');
+        $customers =  DB::table('services')
+        ->join('service_client', 'service_client.service_id', '=', 'services.id')
+        ->join('client', 'client.id', '=', 'service_client.client_id')
+        ->join('users', 'users.id', '=', 'service_client.user_chack')
+        ->join('cards', 'cards.card_number', '=', 'service_client.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.card_number', '=', $q )
+        ->select('client.full_name','client.birth_date','cards.card_number','card_user.strat_active','card_user.end_active','client.phone','services.title','card_type.title as type','users.name','service_client.date')
+        ->get();
+        //return response()->json($customers);
+        if(!empty($customers->first())){
+        $pdf = PDF::loadView('report/card_pdf',compact('customers','new'));
+        return $pdf->download($q.' '.$new.'..pdf');
+        }
+        else 
+        return response()->json("No Cards");
+
+    }
     public function generatePDF_card($q="")
     {
         $new = date('Y-m-d');
