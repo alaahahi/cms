@@ -158,7 +158,7 @@
     });
     $('body').on('click', '.download', function () 
     {
-    var q = $('#card_number_input').val();
+    var q = $('#card_number').val();
     window.location.href = "{{ route('generatePDF_card_order') }}/"+q ;
     });
     $('body').on('click', '.add', function () { 
