@@ -99,7 +99,7 @@ return [
     'viewing'                => 'معاينة',
     'yes'                    => 'نعم',
     'yes_please'             => 'نعم، من فضلك',
-    'new_client'             => 'زبون جديد',
+    'new_client'             => 'إدخال زبون جديد',
     'client_today'           => 'الزبائن اليوم',
     'phone'                  => 'الرقم',
     'role_id'                => 'الصلاحيات',
