@@ -104,7 +104,7 @@ return [
     'phone'                  => 'الرقم',
     'role_id'                => 'الصلاحيات',
     'full_name'              => 'الأسم كامل',
-    'strat_active'           => 'تاريخ اتفيعل',
+    'strat_active'           => 'تاريخ التفعيل',
     'end_active'             => 'انتهاء التفعيل',
     'card_type'              => 'نوع البطاقة',
     'card_number'            => 'رقم البطاقة',
