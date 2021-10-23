@@ -119,4 +119,8 @@ return [
     'number'                 => 'العدد',
     'address'                => 'العنوان',
     'rate'                   => 'النسبة',
+    'Success'                => 'صالحة',
+    'Warning'                => 'غير صالحة',
+    'is_validate_Card'       => 'هذه البطاقة صالحة لغاية ',
+    'not_validate_Card'      => 'هذه البطاقة  منتهية الصلاحية',
 ];

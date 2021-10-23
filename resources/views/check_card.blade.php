@@ -53,12 +53,12 @@
                 </div>
             </div>
             <div class="alert alert-success text-center" id="success-alert">
-                <strong>Success!</strong>
-                This Card is validate to <span id="active_to"></span>.
+                <strong>{{ __('voyager::generic.Success') }}</strong>
+                {{ __('voyager::generic.is_validate_Card') }} <span id="active_to"></span>.
             </div>
             <div class="alert alert-danger text-center" id="danger-alert">
-                <strong>Warning!</strong>
-                This Card is not validate.
+                <strong>{{ __('voyager::generic.Warning') }}</strong>
+                {{ __('voyager::generic.not_validate_Card') }}
             </div>
             <table class="table table-bordered data-table">
                 <thead>

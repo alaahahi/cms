@@ -129,4 +129,8 @@ return [
     'number'                 => 'Number',
     'address'                => 'Address',
     'rate'                   => 'Rate',
+    'Success'                => 'Success!',
+    'Warning'                => 'Warning!',
+    'is_validate_Card'       => 'This Card is validate to',
+    'not_validate_Card'      => 'This Card is not expired.',
 ];
