@@ -16,7 +16,6 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use NahidulHasan\Html2pdf\Facades\Pdf;
-
 class CustomerController extends Controller
 {
     public function clients(Request $request)
@@ -188,7 +187,6 @@ class CustomerController extends Controller
     public function generatePDF_card_order($q = "")
     {
         $new = date('Y-m-d');
-        $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
         $customers = DB::table('client')
             ->join('card_user', 'card_user.client_id', '=', 'client.id')
             ->join('cards', 'cards.id', '=', 'card_user.card_id')
@@ -199,15 +197,11 @@ class CustomerController extends Controller
             ->select('client.full_name', 'client.address', 'client.birth_date', 'cards.card_number', 'card_user.strat_active', 'card_user.end_active', 'client.phone', 'card_type.title as type')
             ->get();
 
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' =>  'attachment; filename="' . 'filename.pdf' . '"',
-        ];
 
         //return response()->json($customers);
         if (!empty($customers->first())) {
-            $pdf =  Pdf::generatePdf(view('report/card_info_pdf', compact('customers', 'new')));
-            return $pdf->download($q . ' ' . $new . '..pdf', $headers);
+            //$pdf =  generatePdf(view('report/card_info_pdf', compact('customers', 'new')))->dowload('test.pdf');
+            return Pdf::generatePdf('<h1>Test</h1>');
             return View('report/card_info_pdf', compact('customers', 'new'));
         } else
             return response()->json("No Cards");
