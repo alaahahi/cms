@@ -31,12 +31,12 @@ class CustomerController extends Controller
         ->get();       
        if ($request->ajax()) 
        {
- 
         return Datatables::of($data)
-   
         ->addColumn('action', function ($data) {
-            return '<a href="javascript:void(0)"  data-id="'.$data->id.'" class="btn btn-sm btn-danger pull-right delete"><i class="voyager-wallet"></i>Pay</a>';
-    })
+            return '<a href="javascript:void(0)"  data-id="'.$data->id.'" class="btn btn-sm btn-danger pull-right delete"><i class="voyager-wallet"></i></a>
+                    <a href="javascript:void(0)"  data-id="'.$data->id.'" class="btn btn-sm btn-danger pull-right delete"><i class="voyager-wallet"></i></a>';
+        }
+        )
         ->rawColumns(['action'])
         ->make(true);
      }

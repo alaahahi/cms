@@ -22,10 +22,8 @@ class VoyagerAuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        //$this->validateLogin($request);
-        $this->validate($request, [
-            'name' => 'phone', 'password' => 'required',
-       ]);
+        $this->validateLogin($request);
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -35,7 +33,7 @@ class VoyagerAuthController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        $credentials = $request->only('phone', 'password');
+        $credentials = $this->credentials($request);
 
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
             return $this->sendLoginResponse($request);
