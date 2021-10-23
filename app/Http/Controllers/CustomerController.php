@@ -197,9 +197,9 @@ class CustomerController extends Controller
         ->where('cards.card_number', '=', $q )
         ->select('client.full_name','client.birth_date','cards.card_number','card_user.strat_active','card_user.end_active','client.phone','card_type.title as type')
         ->get();
-        return response()->json($customers);
+        //return response()->json($customers);
         if(!empty($customers->first())){
-        $pdf = PDF::loadView('report/card_pdf',compact('customers','new'));
+        $pdf = PDF::loadView('report/card_info_pdf',compact('customers','new'));
         return $pdf->download($q.' '.$new.'..pdf');
         }
         else 
