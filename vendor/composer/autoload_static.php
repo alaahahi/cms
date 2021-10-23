@@ -128,6 +128,7 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         'N' => 
         array (
             'NunoMaduro\\Collision\\' => 21,
+            'NahidulHasan\\Html2pdf\\' => 22,
         ),
         'M' => 
         array (
@@ -402,8 +403,8 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -440,6 +441,10 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         'NunoMaduro\\Collision\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
+        ),
+        'NahidulHasan\\Html2pdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nahidulhasan/html2pdf/src',
         ),
         'Mpdf\\' => 
         array (
@@ -4400,6 +4405,9 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         'Mpdf\\Writer\\OptionalContentWriter' => __DIR__ . '/..' . '/mpdf/mpdf/src/Writer/OptionalContentWriter.php',
         'Mpdf\\Writer\\PageWriter' => __DIR__ . '/..' . '/mpdf/mpdf/src/Writer/PageWriter.php',
         'Mpdf\\Writer\\ResourceWriter' => __DIR__ . '/..' . '/mpdf/mpdf/src/Writer/ResourceWriter.php',
+        'NahidulHasan\\Html2pdf\\Facades\\Pdf' => __DIR__ . '/..' . '/nahidulhasan/html2pdf/src/Facades/Pdf.php',
+        'NahidulHasan\\Html2pdf\\Html2pdfServiceProvider' => __DIR__ . '/..' . '/nahidulhasan/html2pdf/src/Html2pdfServiceProvider.php',
+        'NahidulHasan\\Html2pdf\\Pdf' => __DIR__ . '/..' . '/nahidulhasan/html2pdf/src/Pdf.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',

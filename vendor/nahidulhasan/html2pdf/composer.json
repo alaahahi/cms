@@ -1,0 +1,32 @@
+{
+    "name": "nahidulhasan/html2pdf",
+    "description": "A Simple package for easily generating PDF documents from HTML.This package is specially for laravel but you can use this without laravel.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nahidul Hasan",
+            "email": "nahidul.cse@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+
+    "autoload": {
+        "psr-4": {
+            "NahidulHasan\\Html2pdf\\": "src/"
+        }
+    },
+
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NahidulHasan\\Html2pdf\\Html2pdfServiceProvider"
+            ],
+
+            "aliases": {
+                "Pdf": "NahidulHasan\\Html2pdf\\Facades\\Pdf"
+            }
+        }
+    }
+
+}

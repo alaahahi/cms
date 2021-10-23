@@ -16,6 +16,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "mpdf/mpdf": "^8.0",
+        "nahidulhasan/html2pdf": "^1.4",
         "tailflow/laravel-orion": "^1.2",
         "tcg/voyager": "^1.4",
         "yajra/laravel-datatables-oracle": "~9.0"
