@@ -18,8 +18,8 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
@@ -98,10 +98,6 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
-            'Spatie\\TemporaryDirectory\\' => 26,
-            'Spatie\\Image\\' => 13,
-            'Spatie\\ImageOptimizer\\' => 22,
-            'Spatie\\Browsershot\\' => 19,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
         ),
@@ -142,7 +138,6 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         'L' => 
         array (
             'League\\MimeTypeDetection\\' => 25,
-            'League\\Glide\\' => 13,
             'League\\Flysystem\\' => 17,
             'League\\Config\\' => 14,
             'League\\CommonMark\\' => 18,
@@ -373,22 +368,6 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Spatie\\TemporaryDirectory\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/spatie/temporary-directory/src',
-        ),
-        'Spatie\\Image\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/spatie/image/src',
-        ),
-        'Spatie\\ImageOptimizer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/spatie/image-optimizer/src',
-        ),
-        'Spatie\\Browsershot\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/spatie/browsershot/src',
-        ),
         'Seld\\PharUtils\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/phar-utils/src',
@@ -423,8 +402,8 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -477,10 +456,6 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         'League\\MimeTypeDetection\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
-        ),
-        'League\\Glide\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/glide/src',
         ),
         'League\\Flysystem\\' => 
         array (
@@ -4007,39 +3982,6 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         'League\\Flysystem\\Util\\ContentListingFormatter' => __DIR__ . '/..' . '/league/flysystem/src/Util/ContentListingFormatter.php',
         'League\\Flysystem\\Util\\MimeType' => __DIR__ . '/..' . '/league/flysystem/src/Util/MimeType.php',
         'League\\Flysystem\\Util\\StreamHasher' => __DIR__ . '/..' . '/league/flysystem/src/Util/StreamHasher.php',
-        'League\\Glide\\Api\\Api' => __DIR__ . '/..' . '/league/glide/src/Api/Api.php',
-        'League\\Glide\\Api\\ApiInterface' => __DIR__ . '/..' . '/league/glide/src/Api/ApiInterface.php',
-        'League\\Glide\\Filesystem\\FileNotFoundException' => __DIR__ . '/..' . '/league/glide/src/Filesystem/FileNotFoundException.php',
-        'League\\Glide\\Filesystem\\FilesystemException' => __DIR__ . '/..' . '/league/glide/src/Filesystem/FilesystemException.php',
-        'League\\Glide\\Manipulators\\Background' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Background.php',
-        'League\\Glide\\Manipulators\\BaseManipulator' => __DIR__ . '/..' . '/league/glide/src/Manipulators/BaseManipulator.php',
-        'League\\Glide\\Manipulators\\Blur' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Blur.php',
-        'League\\Glide\\Manipulators\\Border' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Border.php',
-        'League\\Glide\\Manipulators\\Brightness' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Brightness.php',
-        'League\\Glide\\Manipulators\\Contrast' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Contrast.php',
-        'League\\Glide\\Manipulators\\Crop' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Crop.php',
-        'League\\Glide\\Manipulators\\Encode' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Encode.php',
-        'League\\Glide\\Manipulators\\Filter' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Filter.php',
-        'League\\Glide\\Manipulators\\Flip' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Flip.php',
-        'League\\Glide\\Manipulators\\Gamma' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Gamma.php',
-        'League\\Glide\\Manipulators\\Helpers\\Color' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Helpers/Color.php',
-        'League\\Glide\\Manipulators\\Helpers\\Dimension' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Helpers/Dimension.php',
-        'League\\Glide\\Manipulators\\ManipulatorInterface' => __DIR__ . '/..' . '/league/glide/src/Manipulators/ManipulatorInterface.php',
-        'League\\Glide\\Manipulators\\Orientation' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Orientation.php',
-        'League\\Glide\\Manipulators\\Pixelate' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Pixelate.php',
-        'League\\Glide\\Manipulators\\Sharpen' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Sharpen.php',
-        'League\\Glide\\Manipulators\\Size' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Size.php',
-        'League\\Glide\\Manipulators\\Watermark' => __DIR__ . '/..' . '/league/glide/src/Manipulators/Watermark.php',
-        'League\\Glide\\Responses\\PsrResponseFactory' => __DIR__ . '/..' . '/league/glide/src/Responses/PsrResponseFactory.php',
-        'League\\Glide\\Responses\\ResponseFactoryInterface' => __DIR__ . '/..' . '/league/glide/src/Responses/ResponseFactoryInterface.php',
-        'League\\Glide\\Server' => __DIR__ . '/..' . '/league/glide/src/Server.php',
-        'League\\Glide\\ServerFactory' => __DIR__ . '/..' . '/league/glide/src/ServerFactory.php',
-        'League\\Glide\\Signatures\\Signature' => __DIR__ . '/..' . '/league/glide/src/Signatures/Signature.php',
-        'League\\Glide\\Signatures\\SignatureException' => __DIR__ . '/..' . '/league/glide/src/Signatures/SignatureException.php',
-        'League\\Glide\\Signatures\\SignatureFactory' => __DIR__ . '/..' . '/league/glide/src/Signatures/SignatureFactory.php',
-        'League\\Glide\\Signatures\\SignatureInterface' => __DIR__ . '/..' . '/league/glide/src/Signatures/SignatureInterface.php',
-        'League\\Glide\\Urls\\UrlBuilder' => __DIR__ . '/..' . '/league/glide/src/Urls/UrlBuilder.php',
-        'League\\Glide\\Urls\\UrlBuilderFactory' => __DIR__ . '/..' . '/league/glide/src/Urls/UrlBuilderFactory.php',
         'League\\MimeTypeDetection\\EmptyExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/EmptyExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\ExtensionMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionMimeTypeDetector.php',
         'League\\MimeTypeDetection\\ExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionToMimeTypeMap.php',
@@ -5900,32 +5842,6 @@ class ComposerStaticInitb6df61b06c456a1469d928e3be6ca0d4
         'Seld\\JsonLint\\Undefined' => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint/Undefined.php',
         'Seld\\PharUtils\\Linter' => __DIR__ . '/..' . '/seld/phar-utils/src/Linter.php',
         'Seld\\PharUtils\\Timestamps' => __DIR__ . '/..' . '/seld/phar-utils/src/Timestamps.php',
-        'Spatie\\Browsershot\\Browsershot' => __DIR__ . '/..' . '/spatie/browsershot/src/Browsershot.php',
-        'Spatie\\Browsershot\\Exceptions\\CouldNotTakeBrowsershot' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/CouldNotTakeBrowsershot.php',
-        'Spatie\\Browsershot\\Exceptions\\ElementNotFound' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/ElementNotFound.php',
-        'Spatie\\ImageOptimizer\\DummyLogger' => __DIR__ . '/..' . '/spatie/image-optimizer/src/DummyLogger.php',
-        'Spatie\\ImageOptimizer\\Image' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Image.php',
-        'Spatie\\ImageOptimizer\\Optimizer' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizer.php',
-        'Spatie\\ImageOptimizer\\OptimizerChain' => __DIR__ . '/..' . '/spatie/image-optimizer/src/OptimizerChain.php',
-        'Spatie\\ImageOptimizer\\OptimizerChainFactory' => __DIR__ . '/..' . '/spatie/image-optimizer/src/OptimizerChainFactory.php',
-        'Spatie\\ImageOptimizer\\Optimizers\\BaseOptimizer' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizers/BaseOptimizer.php',
-        'Spatie\\ImageOptimizer\\Optimizers\\Cwebp' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizers/Cwebp.php',
-        'Spatie\\ImageOptimizer\\Optimizers\\Gifsicle' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizers/Gifsicle.php',
-        'Spatie\\ImageOptimizer\\Optimizers\\Jpegoptim' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizers/Jpegoptim.php',
-        'Spatie\\ImageOptimizer\\Optimizers\\Optipng' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizers/Optipng.php',
-        'Spatie\\ImageOptimizer\\Optimizers\\Pngquant' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizers/Pngquant.php',
-        'Spatie\\ImageOptimizer\\Optimizers\\Svgo' => __DIR__ . '/..' . '/spatie/image-optimizer/src/Optimizers/Svgo.php',
-        'Spatie\\Image\\Exceptions\\CouldNotConvert' => __DIR__ . '/..' . '/spatie/image/src/Exceptions/CouldNotConvert.php',
-        'Spatie\\Image\\Exceptions\\InvalidImageDriver' => __DIR__ . '/..' . '/spatie/image/src/Exceptions/InvalidImageDriver.php',
-        'Spatie\\Image\\Exceptions\\InvalidManipulation' => __DIR__ . '/..' . '/spatie/image/src/Exceptions/InvalidManipulation.php',
-        'Spatie\\Image\\Exceptions\\InvalidTemporaryDirectory' => __DIR__ . '/..' . '/spatie/image/src/Exceptions/InvalidTemporaryDirectory.php',
-        'Spatie\\Image\\GlideConversion' => __DIR__ . '/..' . '/spatie/image/src/GlideConversion.php',
-        'Spatie\\Image\\Image' => __DIR__ . '/..' . '/spatie/image/src/Image.php',
-        'Spatie\\Image\\ManipulationSequence' => __DIR__ . '/..' . '/spatie/image/src/ManipulationSequence.php',
-        'Spatie\\Image\\Manipulations' => __DIR__ . '/..' . '/spatie/image/src/Manipulations.php',
-        'Spatie\\TemporaryDirectory\\Exceptions\\InvalidDirectoryName' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/InvalidDirectoryName.php',
-        'Spatie\\TemporaryDirectory\\Exceptions\\PathAlreadyExists' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/PathAlreadyExists.php',
-        'Spatie\\TemporaryDirectory\\TemporaryDirectory' => __DIR__ . '/..' . '/spatie/temporary-directory/src/TemporaryDirectory.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\Attribute\\AsCommand' => __DIR__ . '/..' . '/symfony/console/Attribute/AsCommand.php',

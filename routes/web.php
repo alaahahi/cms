@@ -32,7 +32,7 @@ Route::get('admin/edit_product/{id?}', [CustomerController::class, 'edit_product
 Route::Post('admin/edit_products/{id?}', [CustomerController::class, 'edit_products'])->name('admin.edit_products');
 Route::delete('admin/remove_products/{id?}', [CustomerController::class, 'remove_products'])->name('admin.remove_products');
 
-Route::get('generateImage', [CustomerController::class, 'generateImage'])->name('generateImage');
+
 Route::get('clients', [CustomerController::class, 'clients'])->name('clients');
 Route::get('edit_client/{id?}', [CustomerController::class, 'edit_client'])->name('edit_client');
 Route::Post('edit_clients/{id?}', [CustomerController::class, 'edit_clients'])->name('edit_clients');
