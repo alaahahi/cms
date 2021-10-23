@@ -110,7 +110,7 @@ return [
     'card_number'            => 'رقم البطاقة',
     'Action'                 => 'تنفيذ',
     'birth_date'             => 'تاريخ الميلاد',
-    'check_card'             => 'فحص الباقات',
+    'check_card'             => 'فحص البطاقة',
     'client'                 => 'الزبائن',
     'serives_title'          => 'أسم الخدمة',
     'serives_number'         => 'رقم الخدمة',
