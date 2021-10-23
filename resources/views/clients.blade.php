@@ -21,7 +21,7 @@
                            @foreach ($data as $datas)
                             <?php $count =  $count + 1;  ?>
                            @endforeach
-                    <label for="totaltody">Client Count</label>
+                    <label for="totaltody">{{ __('voyager::generic.Client Count') }}</label>
                     <input value="<?php echo $count ?? 0 ?>"  type="text"  class="form-control mx-sm-3" disabled>
                     </div>
                 </div>
@@ -131,8 +131,8 @@
         </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('voyager::generic.close') }}</button>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('voyager::generic.close') }}</button>
         <button type="submit" class="btn btn-success" id="save_btn">{{ __('voyager::generic.save') }}</button></div>
     </div>
     </form>
