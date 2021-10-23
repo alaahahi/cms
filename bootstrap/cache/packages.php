@@ -93,17 +93,6 @@
       0 => 'Laravel\\Ui\\UiServiceProvider',
     ),
   ),
-  'nahidulhasan/html2pdf' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'NahidulHasan\\Html2pdf\\Html2pdfServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Pdf' => 'NahidulHasan\\Html2pdf\\Facades\\Pdf',
-    ),
-  ),
   'nesbot/carbon' => 
   array (
     'providers' => 

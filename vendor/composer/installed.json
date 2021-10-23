@@ -3675,56 +3675,6 @@
             "install-path": "../myclabs/deep-copy"
         },
         {
-            "name": "nahidulhasan/html2pdf",
-            "version": "1.4",
-            "version_normalized": "1.4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nahidulhasan/laravel-pdf.git",
-                "reference": "f5d0d66c3b7e8add1f6b2cf71d0ae03fe386d98a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nahidulhasan/laravel-pdf/zipball/f5d0d66c3b7e8add1f6b2cf71d0ae03fe386d98a",
-                "reference": "f5d0d66c3b7e8add1f6b2cf71d0ae03fe386d98a",
-                "shasum": ""
-            },
-            "time": "2020-12-12T09:03:08+00:00",
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "NahidulHasan\\Html2pdf\\Html2pdfServiceProvider"
-                    ],
-                    "aliases": {
-                        "Pdf": "NahidulHasan\\Html2pdf\\Facades\\Pdf"
-                    }
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "NahidulHasan\\Html2pdf\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nahidul Hasan",
-                    "email": "nahidul.cse@gmail.com"
-                }
-            ],
-            "description": "A Simple package for easily generating PDF documents from HTML.This package is specially for laravel but you can use this without laravel.",
-            "support": {
-                "issues": "https://github.com/nahidulhasan/laravel-pdf/issues",
-                "source": "https://github.com/nahidulhasan/laravel-pdf/tree/1.4"
-            },
-            "install-path": "../nahidulhasan/html2pdf"
-        },
-        {
             "name": "nesbot/carbon",
             "version": "2.51.1",
             "version_normalized": "2.51.1.0",
