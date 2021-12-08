@@ -41,6 +41,7 @@
                         <th>{{ __('voyager::generic.strat_active') }}</th>
                         <th>{{ __('voyager::generic.end_active') }}</th>
                         <th>{{ __('voyager::generic.card_type') }}</th>
+                        <th>{{ __('voyager::generic.user') }}</th>
                         <th>{{ __('voyager::generic.Action') }}</th>
                 </thead>
                 <tbody>
@@ -87,7 +88,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                 <label for="birth_date" class="col-form-label">{{ __('voyager::generic.birth_date') }}:</label>
-                <input type="date" class="form-control" name="birth_date" id="birth_date" require>
+                <input type="date" class="form-control" name="birth_date" id="birth_date">
                 </div>
             </div>
             <div class="col-md-6">
@@ -142,6 +143,11 @@
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript">
+    Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
   $(function () {
 
     var table = $('.data-table').DataTable({
@@ -153,6 +159,7 @@
             {data: 'strat_active', name: 'strat_active'},
             {data: 'end_active', name: 'end_active'},
             {data: 'title', name: 'title'},
+            {data: 'name', name: 'name'},
             {data: 'action', name: 'action'},
         ]
     });
@@ -168,8 +175,8 @@
         $('#phone').val("");
         $('#address').val("");
         $('#card_number').val("").prop('disabled', false);
-        $('#strat_active').val("").prop('disabled', false);
-        $('#birth_date').val("");
+        $('#strat_active').val(new Date().toDateInputValue()).prop('disabled', false);
+        $('#birth_date').val(new Date().toDateInputValue());
         $('.modal-product').modal('show');
     });
     $('body').on('click', '.edit', function () {

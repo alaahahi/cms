@@ -124,5 +124,6 @@ return [
     'is_validate_Card'       => 'هذه البطاقة صالحة لغاية ',
     'not_validate_Card'      => 'هذه البطاقة  منتهية الصلاحية',
     'Services'               => 'الخدمات المقدمة',
-    'Client Count'           => 'مجموع الزبائن'
+    'Client Count'           => 'مجموع الزبائن',
+    'user'                   =>'المندوب'
 ];

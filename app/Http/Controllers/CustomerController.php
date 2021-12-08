@@ -26,10 +26,11 @@ class CustomerController extends Controller
         ->join('card_user', 'card_user.client_id', '=', 'client.id')
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
         ->where('client.deleted_at', '=',  null )
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  )
-        ->select(['client.id','cards.card_number','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
+        ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
         ->get();
         }
         else{
@@ -37,11 +38,12 @@ class CustomerController extends Controller
         ->join('card_user', 'card_user.client_id', '=', 'client.id')
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
         ->where('client.deleted_at', '=',  null )
         ->where('cards.author_id', '=', $userId->id )
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  )
-        ->select(['client.id','cards.card_number','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
+        ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
         ->get();
         }       
        if ($request->ajax()) 
