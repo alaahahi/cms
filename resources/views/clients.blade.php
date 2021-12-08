@@ -114,6 +114,15 @@
             </select>
             </span>
             </div>
+            <div class="col-md-6">
+            <label for="phone" class="col-form-label">{{ __('voyager::generic.card_type') }}:</label>
+            <input type="text" class="form-control"  id="card_type_id" disabled>
+            <span id="card_type">
+            <select class="form-control select2-ajax select2-hidden-accessible " name="card_type_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_user_relationship" data-method="add" data-select3-id="1" tabindex="-1" aria-hidden="true">
+                    <option value="" data-select2-id="3">None</option>
+            </select>
+            </span>
+            </div>
         </div>
         <div class="row">
           
