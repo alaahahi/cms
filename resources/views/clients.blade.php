@@ -105,7 +105,7 @@
                 <input type="number" class="form-control" name="card_number" id="card_number" require>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
             <label for="phone" class="col-form-label">{{ __('voyager::generic.card_type') }}:</label>
             <input type="text" class="form-control"  id="card_type_id" disabled>
             <span id="card_type">
@@ -114,11 +114,11 @@
             </select>
             </span>
             </div>
-            <div class="col-md-6">
-            <label for="phone" class="col-form-label">{{ __('voyager::generic.card_type') }}:</label>
-            <input type="text" class="form-control"  id="card_type_id" disabled>
-            <span id="card_type">
-            <select class="form-control select2-ajax select2-hidden-accessible " name="card_type_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_user_relationship" data-method="add" data-select3-id="1" tabindex="-1" aria-hidden="true">
+            <div class="col-md-3">
+            <label for="phone" class="col-form-label">{{ __('voyager::generic.user') }}:</label>
+            <input type="text" class="form-control"  id="card_user_id" disabled>
+            <span id="card_user">
+            <select class="form-control select2-ajax select2-hidden-accessible " name="card_user_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_user_relationship" data-method="add" data-select3-id="1" tabindex="-1" aria-hidden="true">
                     <option value="" data-select2-id="3">None</option>
             </select>
             </span>
@@ -180,6 +180,7 @@
     $('body').on('click', '.add', function () { 
         $("#card_type").show();
         $("#card_type_id").hide();
+        $("#card_user_id").hide();
         $('#full_name').val("");
         $('#phone').val("");
         $('#address').val("");
@@ -205,10 +206,13 @@
                 $('#card_number').val(client.card_number).prop('disabled', true);
                 $('#strat_active').val(client.strat_active).prop('disabled', true);
                 $('#birth_date').val(client.birth_date);
+                $('#card_user_id').val(client.name);
                 $('#card_type_id').val(client.title);
                 $('#address').val(client.address);
                 $("#card_type").hide();
                 $("#card_type_id").show();
+                $("#card_user").hide();
+                $("#card_user_id").show();
                 $('#upload-image-form').attr('data-id' , client.id);
                 $('.modal-product').modal('show');
             },
