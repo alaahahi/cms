@@ -105,14 +105,16 @@ class CustomerController extends Controller
     }
     public function edit_client($id)
     {
+        $userId =  Auth::user();
         $data = DB::table('client')
         ->join('card_user', 'card_user.client_id', '=', 'client.id')
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
         ->where('client.id', '=',$id)
         ->where('cards.is_valid', '=', 1 )
         ->where('client.deleted_at', '=',  null )
-        ->select(['client.id','cards.card_number','client.full_name','client.phone','client.address','card_user.strat_active','card_user.end_active', 'card_type.title' ,'client.birth_date'])
+        ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','client.address','card_user.strat_active','card_user.end_active', 'card_type.title' ,'client.birth_date'])
         ->first();
         return response()->json($data);       
     }
