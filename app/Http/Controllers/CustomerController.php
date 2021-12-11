@@ -63,7 +63,7 @@ class CustomerController extends Controller
     public function edit_clients(Request $request,$id)
     {
         $date = date('Y-m-d h:i');
-        $userId =  Auth::user()->id;
+        $userId = $request->card_user_id;// Auth::user()->id;
         $item= [ 
          'full_name'=> $request->full_name,
          'phone'=> $request->phone,
