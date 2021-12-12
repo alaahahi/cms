@@ -407,4 +407,85 @@ class CustomerController extends Controller
         }
         return view('check_card',compact('data'));
     }
+
+    //report users
+    public function user(Request $request,$q="")
+    { 
+        $data = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
+        ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.card_number', '=', $q )
+        ->select(['services.title','services.id as services_id','client.id as client_id'])
+        ->get();
+        //return response()->json($data);
+        if ($request->ajax()) 
+        {
+         return Datatables::of($data)->make(true);
+      }
+        return view('report/service',compact('data'));
+    }
+    public function check_user(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
+    { 
+        //if ($from == 0) $from ="2021-06-01";
+        //if ($to == 0) $to =date('Y-m-d');
+        $new = date('Y-m-d');
+        $type_ar="";
+        $form_to_data="";
+        $data_temp = DB::table('services')
+        ->join('service_client', 'service_client.service_id', '=', 'services.id')
+        ->join('client', 'client.id', '=', 'service_client.client_id')
+        ->join('users', 'users.id', '=', 'service_client.user_chack')
+        ->join('cards', 'cards.card_number', '=', 'service_client.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null );
+        if($from !=0 && $to!=0)
+        {
+        $form_to_data= $data_temp->whereBetween('date', [$from, $to]);  
+        }
+        else
+        {
+        $form_to_data=$data_temp;
+        }
+        if($type==0 || $type=="undefined")
+        {
+            $data= $form_to_data;
+            $type_ar=" جميع الخدمات  لتاريخ".$new;
+            
+        }
+        else
+        {
+            $data= $form_to_data->where('services.id', '=', $type );
+            if(!empty($data->first())){
+                $type_ar=" جميع الخدمات  المقدمة من ".$data->select(['services.title'])->first()->title;
+            }
+           
+        }
+
+        $data_service=$data->select(['services.title','service_client.date','card_type.title as type','cards.card_number','service_client.number','users.name'])
+     
+        ->get();
+        
+        //return response()->json($data_service);  
+       if ($request->ajax()) 
+       {
+        return Datatables::of($data_service)->make(true);
+       }
+       if($pdf_download){
+        $customers=$data_service;
+        if(!empty($customers->first())){
+        $pdf = PDF::loadView('report/service_from_to_pdf',compact('customers','new','type_ar'));
+        return $pdf->download(' '.$new.'..pdf');
+        }
+        else 
+        return response()->json("No Services");
+        }
+        return view('check_card',compact('data'));
+    }
+    
 }

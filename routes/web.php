@@ -49,12 +49,12 @@ Route::get('generatePDF_card/{q?}', [CustomerController::class, 'generatePDF_car
 Route::get('generatePDF_card_info/{q?}', [CustomerController::class, 'generatePDF_card_info'])->name('generatePDF_card_info');
 Route::get('generatePDF_card_order/{q?}', [CustomerController::class, 'generatePDF_card_order'])->name('generatePDF_card_order');
 Route::get('cards_from_to/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'cards_from_to'])->name('cards_from_to');
-
+//report services
 Route::get('report/service/{q?}', [CustomerController::class, 'service'])->name('service');
-
-
-
 Route::get('report/check_service/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_service'])->name('check_service');
+//report users
+Route::get('report/user/{q?}', [CustomerController::class, 'user'])->name('user');
+Route::get('report/check_user/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_user'])->name('check_user');
 
 //Calendar
 Route::get('calendar/action', [CalendarDateController::class, 'action'])->name('action');
