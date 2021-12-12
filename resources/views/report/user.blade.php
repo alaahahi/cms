@@ -57,7 +57,7 @@
                     <div class="form-group">
                     <label for="card_number_input">{{ __('voyager::generic.user') }}</label>
                   <!--  <input type="text" class="form-control"  id="card_user_id" disabled>-->
-                    <select class="form-control select2-ajax select2-hidden-accessible " name="card_user_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_user_relationship" data-method="add" data-select3-id="1" tabindex="-1" aria-hidden="true">
+                    <select id="service_input" class="form-control select2-ajax select2-hidden-accessible " name="card_user_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_user_relationship" data-method="add" data-select3-id="1" tabindex="-1" aria-hidden="true">
                         <option value="0" >All</option>
                     </select>
       
