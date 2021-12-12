@@ -110,7 +110,6 @@
             <input type="text" class="form-control"  id="card_type_id" disabled>
             <span id="card_type">
             <select class="form-control select2-ajax select2-hidden-accessible " name="card_type_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_card_type_relationship_1" data-method="add" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                    <option value="" data-select2-id="3">None</option>
             </select>
             </span>
             </div>
@@ -119,7 +118,7 @@
             <input type="text" class="form-control"  id="card_user_id" disabled>
             <span id="card_user">
             <select class="form-control select2-ajax select2-hidden-accessible " name="card_user_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_user_relationship" data-method="add" data-select3-id="1" tabindex="-1" aria-hidden="true">
-                    <option value="" data-select2-id="3">None</option>
+    
             </select>
             </span>
             </div>
@@ -228,6 +227,7 @@ $.ajaxSetup({
     });
 
    $('#upload-image-form').submit(function(e) {
+
     $('#save_btn').prop('disabled', true);
        e.preventDefault();
        let Item_id

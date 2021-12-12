@@ -69,6 +69,7 @@ class CustomerController extends Controller
          'phone'=> $request->phone,
          'birth_date'=> $request->birth_date,
          'card_type_id'=> $request->card_type_id,
+         'card_user_id'=> $request->card_user_id,
          'card_number'=> $request->card_number,
          'address'=> $request->address,
          'strat_active'=> $request->strat_active,
@@ -84,7 +85,7 @@ class CustomerController extends Controller
             $day = DB::table('card_type')->where('card_type.id', '=', $item['card_type_id'] )->select('validation')->first()->validation;
             $day_str="+$day days";
             $end_active =date('Y-m-d',strtotime($day_str,strtotime($item['strat_active'])));
-            DB::table('card_user')->insert(array('card_id' => DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=>$userId,'created_at'=>$date)),'client_id' =>DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'address'=>$item['address'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date)),'strat_active' => $item['strat_active'],'author_id'=>$userId,'end_active' =>  $end_active,'created_at'=>$date));
+            DB::table('card_user')->insert(array('card_id' => DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=> $item['card_user_id'],'created_at'=>$date)),'client_id' =>DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'address'=>$item['address'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date)),'strat_active' => $item['strat_active'],'author_id'=>$userId,'end_active' =>  $end_active,'created_at'=>$date));
             return response()->json('Added Client');
         }
         else
