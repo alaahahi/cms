@@ -135,5 +135,8 @@ return [
     'not_validate_Card'      => 'This Card is not expired.',
     'Services'               => 'Services',
     'Client Count'           => 'Client Count',
-    'user'                   => 'User'
+    'user'                   => 'User',
+    'user accounting'        => 'User Accounting',
+    'from'                   => 'From Date',
+    'to'                     => 'To Date'
 ];

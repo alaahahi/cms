@@ -427,7 +427,7 @@ class CustomerController extends Controller
         {
          return Datatables::of($data)->make(true);
       }
-        return view('report/service',compact('data'));
+        return view('report/user',compact('data'));
     }
     public function check_user(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
     { 
@@ -479,7 +479,7 @@ class CustomerController extends Controller
        if($pdf_download){
         $customers=$data_service;
         if(!empty($customers->first())){
-        $pdf = PDF::loadView('report/service_from_to_pdf',compact('customers','new','type_ar'));
+        $pdf = PDF::loadView('report/user_from_to_pdf',compact('customers','new','type_ar'));
         return $pdf->download(' '.$new.'..pdf');
         }
         else 

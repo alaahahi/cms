@@ -33,7 +33,7 @@
         <div class="col-md-12 mt-5">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3><strong>Reports Service</strong></h3>
+                    <h3><strong>{{ __('voyager::generic.user accounting') }}</strong></h3>
                 </div>
             </div>
            
@@ -43,34 +43,37 @@
             <div class="row">
             <div class="col-md-3 text-center">           
                     <div class="form-group">
-                        <label for="date-from">From</label>
+                        <label for="date-from">{{ __('voyager::generic.from') }}</label>
                         <input   type="date" id="date-from"  class="form-control mx-sm-3" >
                     </div>
                 </div>
                 <div class="col-md-3 text-center">           
                     <div class="form-group">
-                        <label for="date-to">To</label>
+                        <label for="date-to">{{ __('voyager::generic.to') }}</label>
                         <input   type="date" id="date-to"  class="form-control mx-sm-3" >
                     </div>
                 </div>
                 <div class="col-md-2 text-center">           
                     <div class="form-group">
-                    <label for="card_number_input">Service</label>
-                    <select  id="service_input" class="form-control select2-ajax select2-hidden-accessible" name="services_id" data-get-items-route="https://savingservices.net/cms/public/admin/servicecardtype/relation" data-get-items-field="servicecardtype_belongsto_service_relationship" data-method="add" data-select2-id="4" tabindex="-1" aria-hidden="true">
-                    <option value="0" >All</option>
+                    <label for="card_number_input">{{ __('voyager::generic.user') }}</label>
+                  <!--  <input type="text" class="form-control"  id="card_user_id" disabled>-->
+                    <select class="form-control select2-ajax select2-hidden-accessible " name="card_user_id" data-get-items-route="https://savingservices.net/cms/public/admin/cards/relation" data-get-items-field="card_belongsto_user_relationship" data-method="add" data-select3-id="1" tabindex="-1" aria-hidden="true">
+                        <option value="0" >All</option>
                     </select>
+      
+                 
                     </div>
                 </div>
                 <div class="col-md-2 text-center">
                     <div class="form-group">
                     <br>
-                    <a href="javascript:void(0)" class="btn btn-primary col-md-12  add">Search</a>
+                    <a href="javascript:void(0)" class="btn btn-primary col-md-12  add">{{ __('voyager::generic.search') }}</a>
                     </div>
                 </div>
                 <div class="col-md-2 text-center">
                     <div class="form-group">
                     <br>
-                    <a href="javascript:void(0)" class="btn btn-success col-md-12 download_service">Download</a>
+                    <a href="javascript:void(0)" class="btn btn-success col-md-12 download_service">{{ __('voyager::generic.download') }}</a>
                     </div>
                 </div>
             </div>

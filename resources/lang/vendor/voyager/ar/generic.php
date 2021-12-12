@@ -34,7 +34,7 @@ return [
     'delete_this_confirm'    => 'نعم، احذف',
     'descending'             => 'تنازلي',
     'deselect_all'           => 'إلغاء تحديد الكل',
-    'download'               => 'تحميل',
+    'download'               => 'تنزيل',
     'drag_drop_info'         => 'اسحب وأفلت العناصر أدناه لإعادة ترتيبها.',
     'edit'                   => 'تعديل',
     'email'                  => 'البريد الإلكتروني',
@@ -125,5 +125,8 @@ return [
     'not_validate_Card'      => 'هذه البطاقة  منتهية الصلاحية',
     'Services'               => 'الخدمات المقدمة',
     'Client Count'           => 'مجموع الزبائن',
-    'user'                   =>'المندوب'
+    'user'                   => 'المندوب',
+    'user accounting'        => 'حسابات المندوبين',
+    'from'                   => 'من تاريخ',
+    'to'                     => 'حتى تاريخ'
 ];
