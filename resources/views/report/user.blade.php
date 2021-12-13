@@ -80,12 +80,11 @@
             <table class="table table-bordered data-table">
                 <thead>
                     <tr>
-                        <th>{{ __('voyager::generic.serives_title') }}</th>
-                        <th>{{ __('voyager::generic.admin_check') }}</th>
+                        <th>{{ __('voyager::generic.user') }}</th>
+                        <th>{{ __('voyager::generic.full_name') }}</th>
+                        <th>{{ __('voyager::generic.phone') }}</th>
                         <th>{{ __('voyager::generic.card_number') }}</th>
-                        <th>{{ __('voyager::generic.card_type') }}</th>
-                        <th>{{ __('voyager::generic.date') }}</th>
-                        <th>{{ __('voyager::generic.number') }}</th>
+                        <th>{{ __('voyager::generic.type') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -179,12 +178,11 @@
      table = $('.data-table').DataTable({
                             ajax: "{{ route('check_user') }}/"+from+"/"+to+"/"+type+"/"+false,
                                     columns: [
-                                    {data: 'title', name: 'title'},
                                     {data: 'name', name: 'name'},
+                                    {data: 'full_name', name: 'full_name'},
+                                    {data: 'phone', name: 'phone'},
                                     {data: 'card_number', name: 'card_number'},
-                                    {data: 'type', name: 'type'},
-                                    {data: 'date', name: 'date'},
-                                    {data: 'number', name: 'number'},
+                                    {data: 'title', name: 'title'},
                                     ],
                                     "bDestroy": true
                             });

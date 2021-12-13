@@ -450,7 +450,6 @@ class CustomerController extends Controller
 
         if($from !=0 && $to!=0)
         {
-        $form_to_data= $data_temp->whereBetween('date', [$from, $to]);  
         }
         else
         {
@@ -462,21 +461,14 @@ class CustomerController extends Controller
             $type_ar=" جميع الخدمات  لتاريخ".$new;
             
         }
-        else
-        {
-            $data= $form_to_data->where('users.id', '=', $type );
-            if(!empty($data->first())){
-                $type_ar=" جميع الخدمات  المقدمة من ".$data->select(['users.name'])->first()->title;
-            }
-           
-        }
+      
 
-        $data_service=$data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])->get();
-        $data_count=$data->select(['users.name', 'card_type.title'])->count();
+        $data_service=$data_temp->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])->get();
+        $data_count=$data_temp->select(['users.name', 'card_type.title'])->count();
 
         
         
-        //return response()->json($data_service);  
+        return response()->json($data_service);  
        if ($request->ajax()) 
        {
         return Datatables::of($data_service)->make(true);
