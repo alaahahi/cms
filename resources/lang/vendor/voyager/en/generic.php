@@ -138,5 +138,6 @@ return [
     'user'                   => 'User',
     'user accounting'        => 'User Accounting',
     'from'                   => 'From Date',
-    'to'                     => 'To Date'
+    'to'                     => 'To Date',
+    'all'                    => 'All'
 ];

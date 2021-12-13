@@ -433,17 +433,21 @@ class CustomerController extends Controller
     { 
         //if ($from == 0) $from ="2021-06-01";
         //if ($to == 0) $to =date('Y-m-d');
+        $date = date('Y-m-d h:i');
         $new = date('Y-m-d');
         $type_ar="";
         $form_to_data="";
-        $data_temp = DB::table('services')
-        ->join('service_client', 'service_client.service_id', '=', 'services.id')
-        ->join('client', 'client.id', '=', 'service_client.client_id')
-        ->join('users', 'users.id', '=', 'service_client.user_chack')
-        ->join('cards', 'cards.card_number', '=', 'service_client.card_id')
+        $data_temp = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.author_id', '=',$type )
         ->where('cards.is_valid', '=', 1 )
-        ->where('client.deleted_at', '=',  null );
+        ->where('card_user.end_active', '>=',   $date  );
+        
+
         if($from !=0 && $to!=0)
         {
         $form_to_data= $data_temp->whereBetween('date', [$from, $to]);  
@@ -460,16 +464,17 @@ class CustomerController extends Controller
         }
         else
         {
-            $data= $form_to_data->where('services.id', '=', $type );
+            $data= $form_to_data->where('users.id', '=', $type );
             if(!empty($data->first())){
-                $type_ar=" جميع الخدمات  المقدمة من ".$data->select(['services.title'])->first()->title;
+                $type_ar=" جميع الخدمات  المقدمة من ".$data->select(['users.name'])->first()->title;
             }
            
         }
 
-        $data_service=$data->select(['services.title','service_client.date','card_type.title as type','cards.card_number','service_client.number','users.name'])
-     
-        ->get();
+        $data_service=$data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])->get();
+        $data_count=$data->select(['users.name', 'card_type.title'])->count();
+
+        
         
         //return response()->json($data_service);  
        if ($request->ajax()) 
