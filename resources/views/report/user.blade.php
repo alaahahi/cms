@@ -85,6 +85,7 @@
                         <th>{{ __('voyager::generic.phone') }}</th>
                         <th>{{ __('voyager::generic.card_number') }}</th>
                         <th>{{ __('voyager::generic.type') }}</th>
+                        <th>{{ __('voyager::generic.price') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -183,6 +184,7 @@
                                     {data: 'phone', name: 'phone'},
                                     {data: 'card_number', name: 'card_number'},
                                     {data: 'title', name: 'title'},
+                                    {data: 'price', name: 'price'},
                                     ],
                                     "bDestroy": true
                             });
