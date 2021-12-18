@@ -477,7 +477,7 @@ class CustomerController extends Controller
 
         
         
-        return response()->json($data_service);  
+        //return response()->json($data_service);  
        if ($request->ajax()) 
        {
         return Datatables::of($data_service)->make(true);
