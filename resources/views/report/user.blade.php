@@ -91,6 +91,17 @@
                 <tbody>
                 </tbody>
             </table>
+            <table class="table table-bordered data-table1">
+                <thead>
+                    <tr>
+                        <th>{{ __('voyager::generic.user') }}</th>
+                        <th>{{ __('voyager::generic.type') }}</th>
+                        <th>{{ __('voyager::generic.total') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
            
         </div>
     </div>
@@ -168,6 +179,7 @@
   $(function () {
     var table;
     $('.data-table').hide();
+    $('.data-table1').hide();
     $('body').on('click', '.add', function () { 
     var type  = $('#service_input').find(":selected").val();
     var from = $('#date-from').val();
@@ -176,6 +188,7 @@
     if (to == "") to = 0;
     $('.dataTables_wrapper').hide();
     $('.data-table').show();
+    $('.data-table1').show();
      table = $('.data-table').DataTable({
                             ajax: "{{ route('check_user') }}/"+from+"/"+to+"/"+type+"/"+false,
                                     columns: [
@@ -185,6 +198,15 @@
                                     {data: 'card_number', name: 'card_number'},
                                     {data: 'title', name: 'title'},
                                     {data: 'price', name: 'price'},
+                                    ],
+                                    "bDestroy": true
+                            });
+        table1 = $('.data-table1').DataTable({
+                            ajax: "{{ route('check_user_total') }}/"+from+"/"+to+"/"+type,
+                                    columns: [
+                                    {data: 'name', name: 'name'},
+                                    {data: 'price', name: 'price'},
+                                    {data: 'total', name: 'total'},
                                     ],
                                     "bDestroy": true
                             });

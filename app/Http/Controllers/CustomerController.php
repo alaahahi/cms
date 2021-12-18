@@ -14,6 +14,7 @@ use Illuminate\Http\Response;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class CustomerController extends Controller
 {
@@ -471,12 +472,12 @@ class CustomerController extends Controller
         }
       
 
-        $data_service=$data_temp->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title','card_type.price'])->get();
+        $data_service=$data_temp->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
         $data_count=$data_temp->select(['users.name', 'card_type.title'])->count();
 
         
         
-        //return response()->json($data_service);  
+        return response()->json($data_service);  
        if ($request->ajax()) 
        {
         return Datatables::of($data_service)->make(true);
@@ -492,5 +493,62 @@ class CustomerController extends Controller
         }
         return view('check_card',compact('data'));
     }
+
+    public function check_user_total(Request $request,$from=0,$to=0,$type=0)
+    { 
+        //if ($from == 0) $from ="2021-06-01";
+        //if ($to == 0) $to =date('Y-m-d');
+        $date = date('Y-m-d h:i');
+        $new = date('Y-m-d');
+        $type_ar="";
+        $form_to_data="";
+        $data_temp = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.author_id', '=',$type )
+        ->where('cards.is_valid', '=', 1 )
+        ->where('card_user.end_active', '>=',   $date  )
+        ->groupBy('card_type.id');
+
+        if($from !=0 && $to!=0)
+        {
+
+        }
+        else
+        {
+        $form_to_data=$data_temp;
+        }
+        if($type==0 || $type=="undefined")
+        {
+            $type_ar=" جميع الخدمات  لتاريخ".$new;
+            $data_temp = DB::table('client')
+            ->join('card_user', 'card_user.client_id', '=', 'client.id')
+            ->join('cards', 'cards.id', '=', 'card_user.card_id')
+            ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+            ->join('users', 'users.id', '=', 'cards.author_id')
+            ->where('client.deleted_at', '=',  null )
+            ->where('cards.is_valid', '=', 1 )
+            ->where('card_user.end_active', '>=',   $date  )
+            ->groupBy('card_type.title','users.name');
+        }
+      
+
+        $data_service=$data_temp->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as price')])->get();
+        $data_count=$data_temp->select(['users.name', 'card_type.title'])->count();
+
+        
+        
+       //return response()->json($data_service);  
+       if ($request->ajax()) 
+       {
+        return Datatables::of($data_service)->make(true);
+       }
+    
+        return view('check_card',compact('data'));
+    }
+    
     
 }

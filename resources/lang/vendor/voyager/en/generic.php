@@ -140,5 +140,6 @@ return [
     'from'                   => 'From Date',
     'to'                     => 'To Date',
     'all'                    => 'All',
-    'price'                 =>'Price'
+    'price'                  =>'Price',
+    'total'                  =>'Total '
 ];

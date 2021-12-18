@@ -54,6 +54,7 @@ Route::get('report/service/{q?}', [CustomerController::class, 'service'])->name(
 Route::get('report/check_service/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_service'])->name('check_service');
 //report users
 Route::get('report/user/{q?}', [CustomerController::class, 'user'])->name('user');
+Route::get('report/check_user_total/{from?}/{to?}/{type?}', [CustomerController::class, 'check_user_total'])->name('check_user_total');
 Route::get('report/check_user/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_user'])->name('check_user');
 
 //Calendar
