@@ -471,7 +471,7 @@ class CustomerController extends Controller
         }
       
 
-        $data_service=$data_temp->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title','card_type.price * 2'])->get();
+        $data_service=$data_temp->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title','card_type.price'])->get();
         $data_count=$data_temp->select(['users.name', 'card_type.title'])->count();
 
         
