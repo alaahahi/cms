@@ -502,16 +502,7 @@ class CustomerController extends Controller
         $new = date('Y-m-d');
         $type_ar="";
         $form_to_data="";
-        $data_temp = DB::table('client')
-        ->join('card_user', 'card_user.client_id', '=', 'client.id')
-        ->join('cards', 'cards.id', '=', 'card_user.card_id')
-        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
-        ->join('users', 'users.id', '=', 'cards.author_id')
-        ->where('client.deleted_at', '=',  null )
-        ->where('cards.author_id', '=',$type )
-        ->where('cards.is_valid', '=', 1 )
-        ->where('card_user.end_active', '>=',   $date  )
-        ->groupBy('card_type.id');
+     
 
         if($from !=0 && $to!=0)
         {
@@ -519,7 +510,7 @@ class CustomerController extends Controller
         }
         else
         {
-        $form_to_data=$data_temp;
+       
         }
         if($type==0 || $type=="undefined")
         {
@@ -530,6 +521,18 @@ class CustomerController extends Controller
             ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
             ->join('users', 'users.id', '=', 'cards.author_id')
             ->where('client.deleted_at', '=',  null )
+            ->where('cards.is_valid', '=', 1 )
+            ->where('card_user.end_active', '>=',   $date  )
+            ->groupBy('card_type.title','users.name');
+        }
+        else{
+            $data_temp = DB::table('client')
+            ->join('card_user', 'card_user.client_id', '=', 'client.id')
+            ->join('cards', 'cards.id', '=', 'card_user.card_id')
+            ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+            ->join('users', 'users.id', '=', 'cards.author_id')
+            ->where('client.deleted_at', '=',  null )
+            ->where('cards.author_id', '=',$type )
             ->where('cards.is_valid', '=', 1 )
             ->where('card_user.end_active', '>=',   $date  )
             ->groupBy('card_type.title','users.name');
