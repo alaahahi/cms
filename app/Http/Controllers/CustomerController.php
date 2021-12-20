@@ -536,7 +536,7 @@ class CustomerController extends Controller
         }
       
 
-        $data_service=$data_temp->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as price')])->get();
+        $data_service=$data_temp->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
         $data_count=$data_temp->select(['users.name', 'card_type.title'])->count();
 
         

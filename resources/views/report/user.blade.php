@@ -205,7 +205,7 @@
                             ajax: "{{ route('check_user_total') }}/"+from+"/"+to+"/"+type,
                                     columns: [
                                     {data: 'name', name: 'name'},
-                                    {data: 'price', name: 'price'},
+                                    {data: 'title', name: 'title'},
                                     {data: 'total', name: 'total'},
                                     ],
                                     "bDestroy": true
