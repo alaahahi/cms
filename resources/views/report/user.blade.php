@@ -196,7 +196,7 @@
                                     {data: 'full_name', name: 'full_name'},
                                     {data: 'phone', name: 'phone'},
                                     {data: 'card_number', name: 'card_number'},
-                                    {data: 'title', name: 'title'},
+                                    {data: 'type', name: 'type'},
                                     {data: 'price', name: 'price'},
                                     ],
                                     "bDestroy": true
