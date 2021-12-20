@@ -67,24 +67,18 @@ th {
 <table id="myTable" class="display" style="direction: rtl;text-align:center">
         <thead>
                 <tr>
-                 <td>الخدمة</td>
                  <td>مسجل الخدمة</td> 
                  <td>رقم البطاقة</td>
                  <td>نوع البطاقة</td>
-                 <td>تاريخ تقديم الخدمة</td> 
-                 <td>الجلسة</td>
                </tr>
                </thead>
                <tbody>
                @foreach($customers as $customer)
             {
                 <tr>
-                <td>{{ $customer->title }}</td>
                 <td>{{ $customer->name }}</td>
                 <td>{{ $customer->card_number }}</td>
                 <td>{{ $customer->type }}</td>
-                <td>{{ $customer->date }}</td>
-                <td>{{ $customer->number }}</td>
                 </tr>
             }
         </tbody>

@@ -435,7 +435,7 @@ class CustomerController extends Controller
         //if ($from == 0) $from ="2021-06-01";
         //if ($to == 0) $to =date('Y-m-d');
         $date = date('Y-m-d h:i');
-        $new = date('Y-m-d');
+   
         $type_ar="";
         $form_to_data="";
         $data_temp = DB::table('client')
@@ -453,7 +453,7 @@ class CustomerController extends Controller
         }
         if($type==0 || $type=="undefined")
         {
-            $type_ar=" جميع الخدمات  لتاريخ".$new;
+            $type_ar=" جميع الحسابات  لتاريخ".$date;
             $form_to_data= $data_temp;
         }
         else
@@ -461,7 +461,7 @@ class CustomerController extends Controller
             $form_to_data= $data_temp->where('cards.author_id', '=',$type );
         }
 
-        $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
+        $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
         $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
 
         //return response()->json($data_service);  
@@ -472,8 +472,8 @@ class CustomerController extends Controller
        if($pdf_download){
         $customers=$data_service;
         if(!empty($customers->first())){
-        $pdf = PDF::loadView('report/user_from_to_pdf',compact('customers','new','type_ar'));
-        return $pdf->download(' '.$new.'..pdf');
+        $pdf = PDF::loadView('report/user_from_to_pdf',compact('customers','date','type_ar'));
+        return $pdf->download(' '.$date.'..pdf');
         }
         else 
         return response()->json("No Services");
