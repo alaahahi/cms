@@ -12,7 +12,7 @@ body{
         font-size:22px;
         margin-bottom:50px;
     }
-   #myTable{
+   .myTable{
        width: 100%;
        border-collapse: collapse;
    }
@@ -51,7 +51,7 @@ th {
 </p>
 <p style="direction: rtl;">
 <span> بتاريخ</span>
-<span><?php $count=0; echo $new ?></span>
+<span><?php $count=0; echo $date ?></span>
 
 </p>
 <p style="direction: rtl;">
@@ -64,12 +64,15 @@ th {
 </span>
 
 </p>
-<table id="myTable" class="display" style="direction: rtl;text-align:center">
+<table id="myTable" class="display myTable" style="direction: rtl;text-align:center">
         <thead>
                 <tr>
-                 <td>مسجل الخدمة</td> 
-                 <td>رقم البطاقة</td>
-                 <td>نوع البطاقة</td>
+                <th>{{ __('voyager::generic.user') }}</th>
+                        <th>{{ __('voyager::generic.full_name') }}</th>
+                        <th>{{ __('voyager::generic.phone') }}</th>
+                        <th>{{ __('voyager::generic.card_number') }}</th>
+                        <th>{{ __('voyager::generic.type') }}</th>
+                        <th>{{ __('voyager::generic.price') }}</th>
                </tr>
                </thead>
                <tbody>
@@ -77,8 +80,33 @@ th {
             {
                 <tr>
                 <td>{{ $customer->name }}</td>
+                <td>{{ $customer->full_name }}</td>
+                <td>{{ $customer->phone }}</td>
                 <td>{{ $customer->card_number }}</td>
                 <td>{{ $customer->type }}</td>
+                <td>{{ $customer->price }}</td>
+                </tr>
+            }
+        </tbody>
+		@endforeach
+</table>
+<br>
+<hr>
+<table  class="display myTable" style="direction: rtl;text-align:center">
+        <thead>
+                <tr>
+                <th>{{ __('voyager::generic.user') }}</th>
+                <th>{{ __('voyager::generic.type') }}</th>
+                <th>{{ __('voyager::generic.total') }}</th>
+               </tr>
+               </thead>
+               <tbody>
+               @foreach($data_service_total as $customer)
+            {
+                <tr>
+                <td>{{ $customer->name }}</td>
+                <td>{{ $customer->title }}</td>
+                <td>{{ $customer->total }}</td>
                 </tr>
             }
         </tbody>

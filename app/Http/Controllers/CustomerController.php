@@ -464,7 +464,30 @@ class CustomerController extends Controller
         $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
         $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
 
-        //return response()->json($data_service);  
+        $data_temp_total = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.is_valid', '=', 1 )
+        ->where('card_user.end_active', '>=',   $date  )
+        ->groupBy('card_type.title','users.name');
+        if($from !=0 && $to!=0)
+        {
+            $form_to_data_total= $data_temp_total->whereBetween('card_user.created_at', [$from, $to]);
+        }
+        if($type==0 || $type=="undefined")
+        {
+            $type_ar=" جميع الخدمات  لتاريخ".$date;
+            $form_to_data_total= $data_temp_total;
+        }
+        else
+        {
+            $form_to_data_total= $data_temp_total->where('cards.author_id', '=',$type );
+        }
+        $data_service_total=$form_to_data_total->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
+        //return response()->json($data_service_total);  
        if ($request->ajax()) 
        {
         return Datatables::of($data_service)->make(true);
@@ -472,7 +495,7 @@ class CustomerController extends Controller
        if($pdf_download){
         $customers=$data_service;
         if(!empty($customers->first())){
-        $pdf = PDF::loadView('report/user_from_to_pdf',compact('customers','date','type_ar'));
+        $pdf = PDF::loadView('report/user_from_to_pdf',compact('customers','date','type_ar','data_service_total'));
         return $pdf->download(' '.$date.'..pdf');
         }
         else 
