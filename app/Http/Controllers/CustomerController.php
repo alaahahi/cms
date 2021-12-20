@@ -447,7 +447,6 @@ class CustomerController extends Controller
         ->where('cards.author_id', '=',$type )
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  );
-        
 
         if($from !=0 && $to!=0)
         {
@@ -460,23 +459,20 @@ class CustomerController extends Controller
         if($type==0 || $type=="undefined")
         {
           
-            $type_ar=" جميع الخدمات  لتاريخ".$new;
-            $data_temp = DB::table('client')
-            ->join('card_user', 'card_user.client_id', '=', 'client.id')
-            ->join('cards', 'cards.id', '=', 'card_user.card_id')
-            ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
-            ->join('users', 'users.id', '=', 'cards.author_id')
-            ->where('client.deleted_at', '=',  null )
-            ->where('cards.is_valid', '=', 1 )
-            ->where('card_user.end_active', '>=',   $date  );
+        $type_ar=" جميع الخدمات  لتاريخ".$new;
+        $data_temp = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.is_valid', '=', 1 )
+        ->where('card_user.end_active', '>=',   $date  );
         }
-      
 
         $data_service=$data_temp->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
         $data_count=$data_temp->select(['users.name', 'card_type.title'])->count();
 
-        
-        
         //return response()->json($data_service);  
        if ($request->ajax()) 
        {
@@ -537,14 +533,17 @@ class CustomerController extends Controller
             ->where('card_user.end_active', '>=',   $date  )
             ->groupBy('card_type.title','users.name');
         }
-      
+        if($from !=0 && $to!=0)
+        {
+        $form_to_data= $data_temp->whereBetween('card_user.created_at', [$from, $to]);  
+        }
 
         $data_service=$data_temp->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
         $data_count=$data_temp->select(['users.name', 'card_type.title'])->count();
 
         
         
-       //return response()->json($data_service);  
+       return response()->json($data_service);  
        if ($request->ajax()) 
        {
         return Datatables::of($data_service)->make(true);
