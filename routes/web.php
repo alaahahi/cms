@@ -56,6 +56,15 @@ Route::get('report/check_service/{from?}/{to?}/{type?}/{pdf_download?}', [Custom
 Route::get('report/user/{q?}', [CustomerController::class, 'user'])->name('user');
 Route::get('report/check_user_total/{from?}/{to?}/{type?}', [CustomerController::class, 'check_user_total'])->name('check_user_total');
 Route::get('report/check_user/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_user'])->name('check_user');
+//report hospital
+Route::get('report/hospital/{q?}', [CustomerController::class, 'hospital'])->name('hospital');
+Route::get('report/check_hospital_total/{from?}/{to?}/{type?}', [CustomerController::class, 'check_hospital_total'])->name('check_hospital_total');
+Route::get('report/check_hospital/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_hospital'])->name('check_hospital');
+//report doctor
+Route::get('report/doctor/{q?}', [CustomerController::class, 'doctor'])->name('doctor');
+Route::get('report/check_doctor_total/{from?}/{to?}/{type?}', [CustomerController::class, 'check_doctor_total'])->name('check_doctor_total');
+Route::get('report/check_doctor/{from?}/{to?}/{type?}/{pdf_download?}', [CustomerController::class, 'check_doctor'])->name('check_doctor');
+
 
 //Calendar
 Route::get('calendar/action', [CalendarDateController::class, 'action'])->name('action');

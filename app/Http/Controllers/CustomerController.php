@@ -547,5 +547,280 @@ class CustomerController extends Controller
         return view('check_card',compact('data'));
     }
     
+    //report hospital
+    public function hospital(Request $request,$q="")
+    { 
+        $data = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
+        ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+        ->where('cards.is_valid', '=', 1 )
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.card_number', '=', $q )
+        ->select(['services.title','services.id as services_id','client.id as client_id'])
+        ->get();
+        //return response()->json($data);
+        if ($request->ajax()) 
+        {
+         return Datatables::of($data)->make(true);
+      }
+        return view('report/hospital',compact('data'));
+    }
+    public function check_hospital(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
+    { 
+        //if ($from == 0) $from ="2021-06-01";
+        //if ($to == 0) $to =date('Y-m-d');
+        $date = date('Y-m-d h:i');
+   
+        $type_ar="";
+        $form_to_data="";
+        $data_temp = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.is_valid', '=', 1 )
+        ->where('card_user.end_active', '>=',   $date  );
+    
+        if($from !=0 && $to!=0)
+        {
+            $form_to_data= $data_temp->whereBetween('card_user.created_at', [$from, $to]);
+        }
+        if($type==0 || $type=="undefined")
+        {
+            $type_ar=" جميع الحسابات  لتاريخ".$date;
+            $form_to_data= $data_temp;
+        }
+        else
+        {
+            $form_to_data= $data_temp->where('cards.author_id', '=',$type );
+        }
+
+        $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
+        $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
+
+        $data_temp_total = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.is_valid', '=', 1 )
+        ->where('card_user.end_active', '>=',   $date  )
+        ->groupBy('card_type.title','users.name');
+        if($from !=0 && $to!=0)
+        {
+            $form_to_data_total= $data_temp_total->whereBetween('card_user.created_at', [$from, $to]);
+        }
+        if($type==0 || $type=="undefined")
+        {
+            $type_ar=" جميع الخدمات  لتاريخ".$date;
+            $form_to_data_total= $data_temp_total;
+        }
+        else
+        {
+            $form_to_data_total= $data_temp_total->where('cards.author_id', '=',$type );
+        }
+        $data_service_total=$form_to_data_total->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
+        //return response()->json($data_service_total);  
+       if ($request->ajax()) 
+       {
+        return Datatables::of($data_service)->make(true);
+       }
+       if($pdf_download){
+        $customers=$data_service;
+        if(!empty($customers->first())){
+        $pdf = PDF::loadView('report/hospital_from_to_pdf',compact('customers','date','type_ar','data_service_total'));
+        return $pdf->download(' '.$date.'..pdf');
+        }
+        else 
+        return response()->json("No Services");
+        }
+        return view('check_card',compact('data'));
+    }
+
+    public function check_hospital_total(Request $request,$from=0,$to=0,$type=0)
+    { 
+        //if ($from == 0) $from ="2021-06-01";
+        //if ($to == 0) $to =date('Y-m-d');
+        $date = date('Y-m-d h:i');
+        $new = date('Y-m-d');
+        $type_ar="";
+        $form_to_data="";
+        $data_temp = DB::table('client')
+        ->join('card_user', 'card_user.client_id', '=', 'client.id')
+        ->join('cards', 'cards.id', '=', 'card_user.card_id')
+        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+        ->join('users', 'users.id', '=', 'cards.author_id')
+        ->where('client.deleted_at', '=',  null )
+        ->where('cards.is_valid', '=', 1 )
+        ->where('card_user.end_active', '>=',   $date  )
+        ->groupBy('card_type.title','users.name');
+        if($from !=0 && $to!=0)
+        {
+            $form_to_data= $data_temp->whereBetween('card_user.created_at', [$from, $to]);
+        }
+        if($type==0 || $type=="undefined")
+        {
+            $type_ar=" جميع الخدمات  لتاريخ".$new;
+            $form_to_data= $data_temp;
+        }
+        else
+        {
+            $form_to_data= $data_temp->where('cards.author_id', '=',$type );
+        }
+     
+        $data_service=$form_to_data->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
+        $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
+
+       //return response()->json($data_service);
+       if ($request->ajax())
+       {
+        return Datatables::of($data_service)->make(true);
+       }
+    
+        return view('check_card',compact('data'));
+    }
+
+      //report doctor
+      public function doctor(Request $request,$q="")
+      { 
+          $data = DB::table('client')
+          ->join('card_user', 'card_user.client_id', '=', 'client.id')
+          ->join('cards', 'cards.id', '=', 'card_user.card_id')
+          ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+          ->join('servicecardtype', 'servicecardtype.card_type_id', '=', 'card_type.id')
+          ->join('services', 'services.id', '=', 'servicecardtype.services_id')
+          ->where('cards.is_valid', '=', 1 )
+          ->where('client.deleted_at', '=',  null )
+          ->where('cards.card_number', '=', $q )
+          ->select(['services.title','services.id as services_id','client.id as client_id'])
+          ->get();
+          //return response()->json($data);
+          if ($request->ajax()) 
+          {
+           return Datatables::of($data)->make(true);
+        }
+          return view('report/doctor',compact('data'));
+      }
+      public function check_doctor(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
+      { 
+          //if ($from == 0) $from ="2021-06-01";
+          //if ($to == 0) $to =date('Y-m-d');
+          $date = date('Y-m-d h:i');
+     
+          $type_ar="";
+          $form_to_data="";
+          $data_temp = DB::table('client')
+          ->join('card_user', 'card_user.client_id', '=', 'client.id')
+          ->join('cards', 'cards.id', '=', 'card_user.card_id')
+          ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+          ->join('users', 'users.id', '=', 'cards.author_id')
+          ->where('client.deleted_at', '=',  null )
+          ->where('cards.is_valid', '=', 1 )
+          ->where('card_user.end_active', '>=',   $date  );
+      
+          if($from !=0 && $to!=0)
+          {
+              $form_to_data= $data_temp->whereBetween('card_user.created_at', [$from, $to]);
+          }
+          if($type==0 || $type=="undefined")
+          {
+              $type_ar=" جميع الحسابات  لتاريخ".$date;
+              $form_to_data= $data_temp;
+          }
+          else
+          {
+              $form_to_data= $data_temp->where('cards.author_id', '=',$type );
+          }
+  
+          $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
+          $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
+  
+          $data_temp_total = DB::table('client')
+          ->join('card_user', 'card_user.client_id', '=', 'client.id')
+          ->join('cards', 'cards.id', '=', 'card_user.card_id')
+          ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+          ->join('users', 'users.id', '=', 'cards.author_id')
+          ->where('client.deleted_at', '=',  null )
+          ->where('cards.is_valid', '=', 1 )
+          ->where('card_user.end_active', '>=',   $date  )
+          ->groupBy('card_type.title','users.name');
+          if($from !=0 && $to!=0)
+          {
+              $form_to_data_total= $data_temp_total->whereBetween('card_user.created_at', [$from, $to]);
+          }
+          if($type==0 || $type=="undefined")
+          {
+              $type_ar=" جميع الخدمات  لتاريخ".$date;
+              $form_to_data_total= $data_temp_total;
+          }
+          else
+          {
+              $form_to_data_total= $data_temp_total->where('cards.author_id', '=',$type );
+          }
+          $data_service_total=$form_to_data_total->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
+          //return response()->json($data_service_total);  
+         if ($request->ajax()) 
+         {
+          return Datatables::of($data_service)->make(true);
+         }
+         if($pdf_download){
+          $customers=$data_service;
+          if(!empty($customers->first())){
+          $pdf = PDF::loadView('report/user_from_to_pdf',compact('customers','date','type_ar','data_service_total'));
+          return $pdf->download(' '.$date.'..pdf');
+          }
+          else 
+          return response()->json("No Services");
+          }
+          return view('check_card',compact('data'));
+      }
+  
+      public function check_doctor_total(Request $request,$from=0,$to=0,$type=0)
+      { 
+          //if ($from == 0) $from ="2021-06-01";
+          //if ($to == 0) $to =date('Y-m-d');
+          $date = date('Y-m-d h:i');
+          $new = date('Y-m-d');
+          $type_ar="";
+          $form_to_data="";
+          $data_temp = DB::table('client')
+          ->join('card_user', 'card_user.client_id', '=', 'client.id')
+          ->join('cards', 'cards.id', '=', 'card_user.card_id')
+          ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
+          ->join('users', 'users.id', '=', 'cards.author_id')
+          ->where('client.deleted_at', '=',  null )
+          ->where('cards.is_valid', '=', 1 )
+          ->where('card_user.end_active', '>=',   $date  )
+          ->groupBy('card_type.title','users.name');
+          if($from !=0 && $to!=0)
+          {
+              $form_to_data= $data_temp->whereBetween('card_user.created_at', [$from, $to]);
+          }
+          if($type==0 || $type=="undefined")
+          {
+              $type_ar=" جميع الخدمات  لتاريخ".$new;
+              $form_to_data= $data_temp;
+          }
+          else
+          {
+              $form_to_data= $data_temp->where('cards.author_id', '=',$type );
+          }
+       
+          $data_service=$form_to_data->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
+          $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
+  
+         //return response()->json($data_service);
+         if ($request->ajax())
+         {
+          return Datatables::of($data_service)->make(true);
+         }
+      
+          return view('doctor_card',compact('data'));
+      }
     
 }
