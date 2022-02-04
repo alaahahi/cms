@@ -676,7 +676,7 @@ class CustomerController extends Controller
         $data_service=$form_to_data->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
         $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
 
-       //return response()->json($data_service);
+       return response()->json($data_service);
        if ($request->ajax())
        {
         return Datatables::of($data_service)->make(true);
