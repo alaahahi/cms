@@ -596,7 +596,7 @@ class CustomerController extends Controller
         }
         else
         {
-            $form_to_data= $data_temp->where('cards.author_id', '=',$type );
+            $form_to_data= $data_temp->where('card_type.id', '=',$type );
         }
 
         $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
@@ -622,7 +622,7 @@ class CustomerController extends Controller
         }
         else
         {
-            $form_to_data_total= $data_temp_total->where('cards.author_id', '=',$type );
+            $form_to_data_total= $data_temp_total->where('card_type.id', '=',$type );
         }
         $data_service_total=$form_to_data_total->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
         //return response()->json($data_service_total);  
@@ -670,7 +670,7 @@ class CustomerController extends Controller
         }
         else
         {
-            $form_to_data= $data_temp->where('cards.author_id', '=',$type );
+            $form_to_data= $data_temp->where('card_type.id', '=',$type );
         }
      
         $data_service=$form_to_data->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
