@@ -141,5 +141,7 @@ return [
     'to'                     => 'To Date',
     'all'                    => 'All',
     'price'                  =>'Price',
-    'total'                  =>'Total '
+    'total'                  =>'Total ',
+    'hospital_accounting'    =>'Hospital Accounting',
+    'doctor_accounting'      =>'Doctor Accounting'
 ];
