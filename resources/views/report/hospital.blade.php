@@ -94,7 +94,7 @@
             <table class="table table-bordered data-table1">
                 <thead>
                     <tr>
-                        <th>{{ __('voyager::generic.user') }}</th>
+             
                         <th>{{ __('voyager::generic.type') }}</th>
                         <th>{{ __('voyager::generic.total') }}</th>
                     </tr>
@@ -190,7 +190,7 @@
     $('.data-table').show();
     $('.data-table1').show();
      table = $('.data-table').DataTable({
-                            ajax: "{{ route('check_user') }}/"+from+"/"+to+"/"+type+"/"+false,
+                            ajax: "{{ route('check_hospital') }}/"+from+"/"+to+"/"+type+"/"+false,
                                     columns: [
                                     {data: 'name', name: 'name'},
                                     {data: 'full_name', name: 'full_name'},
@@ -202,9 +202,9 @@
                                     "bDestroy": true
                             });
         table1 = $('.data-table1').DataTable({
-                            ajax: "{{ route('check_user_total') }}/"+from+"/"+to+"/"+type,
+                            ajax: "{{ route('check_hospital_total') }}/"+from+"/"+to+"/"+type,
                                     columns: [
-                                    {data: 'name', name: 'name'},
+                                  
                                     {data: 'title', name: 'title'},
                                     {data: 'total', name: 'total'},
                                     ],
@@ -219,7 +219,7 @@
     var to = $('#date-to').val();
     if (from == "") from =0;
     if (to == "") to = 0;
-    window.location.href =  "{{ route('check_user') }}/"+from+"/"+to+"/"+type+"/"+true ;
+    window.location.href =  "{{ route('check_hospital') }}/"+from+"/"+to+"/"+type+"/"+true ;
     });
 });
 </script>

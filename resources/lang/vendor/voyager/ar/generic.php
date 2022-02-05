@@ -130,7 +130,7 @@ return [
     'from'                   => 'من تاريخ',
     'to'                     => 'حتى تاريخ',
     'all'                    => 'الكل',
-    'price'                  =>'سعر البطاقة',
+    'price'                  =>'نسبة البطاقة',
     'total'                  =>'المجموع',
     'hospital_accounting'    =>'حساب المستشفى',
     'doctor_accounting'      =>'حساب الطبيب'

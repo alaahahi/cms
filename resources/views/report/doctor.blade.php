@@ -189,7 +189,7 @@
     $('.data-table').show();
     $('.data-table1').show();
      table = $('.data-table').DataTable({
-                            ajax: "{{ route('check_user') }}/"+from+"/"+to+"/"+type+"/"+false,
+                            ajax: "{{ route('check_doctor') }}/"+from+"/"+to+"/"+type+"/"+false,
                                     columns: [
                                     {data: 'name', name: 'name'},
                                     {data: 'full_name', name: 'full_name'},
@@ -201,7 +201,7 @@
                                     "bDestroy": true
                             });
         table1 = $('.data-table1').DataTable({
-                            ajax: "{{ route('check_user_total') }}/"+from+"/"+to+"/"+type,
+                            ajax: "{{ route('check_user_doctor') }}/"+from+"/"+to+"/"+type,
                                     columns: [
                                     {data: 'name', name: 'name'},
                                     {data: 'title', name: 'title'},
@@ -218,7 +218,7 @@
     var to = $('#date-to').val();
     if (from == "") from =0;
     if (to == "") to = 0;
-    window.location.href =  "{{ route('check_user') }}/"+from+"/"+to+"/"+type+"/"+true ;
+    window.location.href =  "{{ route('check_doctor') }}/"+from+"/"+to+"/"+type+"/"+true ;
     });
 });
 </script>
