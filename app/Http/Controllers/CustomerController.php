@@ -665,7 +665,7 @@ class CustomerController extends Controller
         }
         if($type==0 || $type=="undefined")
         {
-            $type_ar=" جميع الخدمات  لتاريخ".$new;
+            $type_ar=" جميع البطاقات  لتاريخ".$new;
             $form_to_data= $data_temp;
         }
         else
@@ -673,10 +673,10 @@ class CustomerController extends Controller
             $form_to_data= $data_temp->where('cards.card_type_id', '=',$type );
         }
      
-        $data_service=$form_to_data->select(['users.name','card_type.title',DB::raw('SUM((card_type.price * users.rate)/100) as total')])->get();
+        $data_service=$form_to_data->select(['users.name','card_type.title',DB::raw('SUM((card_type.price)/12) as total')])->get();
         $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
 
-       return response()->json($data_service);
+       //return response()->json($data_service);
        if ($request->ajax())
        {
         return Datatables::of($data_service)->make(true);
@@ -729,7 +729,7 @@ class CustomerController extends Controller
           }
           if($type==0 || $type=="undefined")
           {
-              $type_ar=" جميع الحسابات  لتاريخ".$date;
+              $type_ar=" جميع البطاقات  لتاريخ".$date;
               $form_to_data= $data_temp;
           }
           else
@@ -737,7 +737,7 @@ class CustomerController extends Controller
               $form_to_data= $data_temp->where('cards.author_id', '=',$type );
           }
   
-          $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price * users.rate)/100 As price' ) ])->get();
+          $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price)/6 As price' ) ])->get();
           $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
   
           $data_temp_total = DB::table('client')
@@ -755,7 +755,7 @@ class CustomerController extends Controller
           }
           if($type==0 || $type=="undefined")
           {
-              $type_ar=" جميع الخدمات  لتاريخ".$date;
+              $type_ar=" جميع البطاقات  لتاريخ".$date;
               $form_to_data_total= $data_temp_total;
           }
           else
@@ -803,7 +803,7 @@ class CustomerController extends Controller
           }
           if($type==0 || $type=="undefined")
           {
-              $type_ar=" جميع الخدمات  لتاريخ".$new;
+              $type_ar=" جميع البطاقات  لتاريخ".$new;
               $form_to_data= $data_temp;
           }
           else
