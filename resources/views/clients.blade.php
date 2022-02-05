@@ -123,34 +123,35 @@
             </span>
             </div>
         </div>
+        <p class='text-center'>أسماء أفراد العائلة</p>
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="full_name" class="col-form-label">{{ __('voyager::generic.full_name') }}:</label>
+                    <label for="full_name" class="col-form-label">1</label>
                     <input type="text" class="form-control" name="full_name"  id="full_name" require>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">{{ __('voyager::generic.phone') }}</label>
+                <label for="phone" class="col-form-label">2</label>
                 <input type="text" class="form-control" name="phone" id="phone" require>
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">{{ __('voyager::generic.card_number') }}:</label>
+                <label for="card_number" class="col-form-label">3</label>
                 <input type="number" class="form-control" name="card_number" id="card_number" require>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">{{ __('voyager::generic.phone') }}</label>
+                <label for="phone" class="col-form-label">4</label>
                 <input type="text" class="form-control" name="phone" id="phone" require>
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">{{ __('voyager::generic.card_number') }}:</label>
+                <label for="card_number" class="col-form-label">5</label>
                 <input type="number" class="form-control" name="card_number" id="card_number" require>
                 </div>
             </div>
@@ -158,31 +159,31 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="full_name" class="col-form-label">{{ __('voyager::generic.full_name') }}:</label>
+                    <label for="full_name" class="col-form-label">6</label>
                     <input type="text" class="form-control" name="full_name"  id="full_name" require>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">{{ __('voyager::generic.phone') }}</label>
+                <label for="phone" class="col-form-label">7</label>
                 <input type="text" class="form-control" name="phone" id="phone" require>
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">{{ __('voyager::generic.card_number') }}:</label>
+                <label for="card_number" class="col-form-label">8</label>
                 <input type="number" class="form-control" name="card_number" id="card_number" require>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">{{ __('voyager::generic.phone') }}</label>
+                <label for="phone" class="col-form-label">9</label>
                 <input type="text" class="form-control" name="phone" id="phone" require>
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">{{ __('voyager::generic.card_number') }}:</label>
+                <label for="card_number" class="col-form-label">10</label>
                 <input type="number" class="form-control" name="card_number" id="card_number" require>
                 </div>
             </div>

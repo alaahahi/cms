@@ -583,7 +583,8 @@ class CustomerController extends Controller
         ->join('users', 'users.id', '=', 'cards.author_id')
         ->where('client.deleted_at', '=',  null )
         ->where('cards.is_valid', '=', 1 )
-        ->where('card_user.end_active', '>=',   $date  );
+        ->where('card_user.end_active', '>=',   $date  )
+        ->orderBy('cards.card_number');
     
         if($from !=0 && $to!=0)
         {
@@ -721,7 +722,8 @@ class CustomerController extends Controller
           ->join('users', 'users.id', '=', 'cards.author_id')
           ->where('client.deleted_at', '=',  null )
           ->where('cards.is_valid', '=', 1 )
-          ->where('card_user.end_active', '>=',   $date  );
+          ->where('card_user.end_active', '>=',   $date  )
+          ->orderBy('cards.card_number');
       
           if($from !=0 && $to!=0)
           {
@@ -748,7 +750,8 @@ class CustomerController extends Controller
           ->where('client.deleted_at', '=',  null )
           ->where('cards.is_valid', '=', 1 )
           ->where('card_user.end_active', '>=',   $date  )
-          ->groupBy('card_type.title','users.name');
+          ->orderBy('cards.card_number')
+          ->groupBy('card_type.title');
           if($from !=0 && $to!=0)
           {
               $form_to_data_total= $data_temp_total->whereBetween('card_user.created_at', [$from, $to]);
@@ -762,7 +765,7 @@ class CustomerController extends Controller
           {
               $form_to_data_total= $data_temp_total->where('cards.card_type_id', '=',$type );
           }
-          $data_service_total=$form_to_data_total->select(['users.name','card_type.title',DB::raw('SUM((card_type.price)/6) as total')])->get();
+          $data_service_total=$form_to_data_total->select(['card_type.title',DB::raw('SUM((card_type.price)/6) as total')])->get();
           //return response()->json($data_service_total);  
          if ($request->ajax()) 
          {
@@ -771,7 +774,7 @@ class CustomerController extends Controller
          if($pdf_download){
           $customers=$data_service;
           if(!empty($customers->first())){
-          $pdf = PDF::loadView('report/user_from_to_pdf',compact('customers','date','type_ar','data_service_total'));
+          $pdf = PDF::loadView('report/doctor_from_to_pdf',compact('customers','date','type_ar','data_service_total'));
           return $pdf->download(' '.$date.'..pdf');
           }
           else 
@@ -796,7 +799,8 @@ class CustomerController extends Controller
           ->where('client.deleted_at', '=',  null )
           ->where('cards.is_valid', '=', 1 )
           ->where('card_user.end_active', '>=',   $date  )
-          ->groupBy('card_type.title','users.name');
+          ->orderBy('cards.card_number')
+          ->groupBy('card_type.title');
           if($from !=0 && $to!=0)
           {
               $form_to_data= $data_temp->whereBetween('card_user.created_at', [$from, $to]);
@@ -811,8 +815,8 @@ class CustomerController extends Controller
               $form_to_data= $data_temp->where('cards.card_type_id', '=',$type );
           }
        
-          $data_service=$form_to_data->select(['users.name','card_type.title',DB::raw('SUM((card_type.price)/6) as total')])->get();
-          $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
+          $data_service=$form_to_data->select(['card_type.title',DB::raw('SUM((card_type.price)/6) as total')])->get();
+          $data_count=$form_to_data->select(['card_type.title'])->count();
   
          //return response()->json($data_service);
          if ($request->ajax())

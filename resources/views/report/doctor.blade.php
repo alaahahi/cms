@@ -93,7 +93,6 @@
             <table class="table table-bordered data-table1">
                 <thead>
                     <tr>
-                        <th>{{ __('voyager::generic.user') }}</th>
                         <th>{{ __('voyager::generic.type') }}</th>
                         <th>{{ __('voyager::generic.total') }}</th>
                     </tr>
@@ -201,9 +200,8 @@
                                     "bDestroy": true
                             });
         table1 = $('.data-table1').DataTable({
-                            ajax: "{{ route('check_user_doctor') }}/"+from+"/"+to+"/"+type,
+                            ajax: "{{ route('check_doctor_total') }}/"+from+"/"+to+"/"+type,
                                     columns: [
-                                    {data: 'name', name: 'name'},
                                     {data: 'title', name: 'title'},
                                     {data: 'total', name: 'total'},
                                     ],
