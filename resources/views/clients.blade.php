@@ -127,64 +127,64 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="full_name" class="col-form-label">1</label>
-                    <input type="text" class="form-control" name="full_name"  id="full_name" require>
+                    <label for="name1" class="col-form-label">1</label>
+                    <input type="text" class="form-control" name="name1"  id="name1" >
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">2</label>
-                <input type="text" class="form-control" name="phone" id="phone" require>
+                <label for="name2" class="col-form-label">2</label>
+                <input type="text" class="form-control" name="name2" id="name2">
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">3</label>
-                <input type="number" class="form-control" name="card_number" id="card_number" require>
+                <label for="name3" class="col-form-label">3</label>
+                <input type="text" class="form-control" name="name3" id="name3" >
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">4</label>
-                <input type="text" class="form-control" name="phone" id="phone" require>
+                <label for="name4" class="col-form-label">4</label>
+                <input type="text" class="form-control" name="name4" id="name4">
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">5</label>
-                <input type="number" class="form-control" name="card_number" id="card_number" require>
+                <label for="name5" class="col-form-label">5</label>
+                <input type="text" class="form-control" name="name5" id="name5">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="full_name" class="col-form-label">6</label>
-                    <input type="text" class="form-control" name="full_name"  id="full_name" require>
+                    <label for="name6" class="col-form-label">6</label>
+                    <input type="text" class="form-control" name="name6"  id="name6" >
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">7</label>
-                <input type="text" class="form-control" name="phone" id="phone" require>
+                <label for="name7" class="col-form-label">7</label>
+                <input type="text" class="form-control" name="name7" id="name7" >
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">8</label>
-                <input type="number" class="form-control" name="card_number" id="card_number" require>
+                <label for="name8" class="col-form-label">8</label>
+                <input type="text" class="form-control" name="name8" id="name8" >
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                <label for="phone" class="col-form-label">9</label>
-                <input type="text" class="form-control" name="phone" id="phone" require>
+                <label for="name9" class="col-form-label">9</label>
+                <input type="text" class="form-control" name="name9" id="name9" >
             </div>
           </div>
           <div class="col-md-2">
                 <div class="form-group">
-                <label for="card_number" class="col-form-label">10</label>
-                <input type="number" class="form-control" name="card_number" id="card_number" require>
+                <label for="name10" class="col-form-label">10</label>
+                <input type="text" class="form-control" name="name10" id="name10">
                 </div>
             </div>
         </div>
