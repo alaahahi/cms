@@ -68,7 +68,7 @@ class CustomerController extends Controller
         $names=',';
         for($i=1;$i<=10;$i++)
         {
-                   $names=  $names+ $request->name.$i+',';
+                   $names=  $request->name.$i+',';
         }
         $item= [ 
          'full_name'=> $request->full_name,
