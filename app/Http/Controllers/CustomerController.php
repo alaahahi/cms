@@ -67,7 +67,7 @@ class CustomerController extends Controller
         $userId = $request->card_user_id;// Auth::user()->id;
         for($i=1;$i<=10;$i++)
         {
-                   $names[]=  $request->name.$i;
+                   $names[]= implode(',',  $request->name+$i);
         }
         $item= [ 
          'full_name'=> $request->full_name,
