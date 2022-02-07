@@ -65,9 +65,7 @@ class CustomerController extends Controller
     {
         $date = date('Y-m-d h:i');
         $userId = $request->card_user_id;// Auth::user()->id;
-        $names=  $request->name1.','.$request->name2.','.$request->name3.','.$request->name4.','.$request->name5.','.$request->name6.','
-        .$request->name7.','.$request->name8.','.$request->name9.','.$request->name10;
-
+        $names=  $request->name1;
         $item= [ 
          'full_name'=> $request->full_name,
          'phone'=> $request->phone,
