@@ -86,7 +86,7 @@ th {
                 <td>{{ $customer->price }}</td>
                 </tr>
                 <tr>
-                {{ $customer->namrs }} 
+                {{ $customer->names }} 
                 </tr>
             }
         </tbody>
