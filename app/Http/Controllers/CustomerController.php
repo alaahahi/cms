@@ -41,7 +41,7 @@ class CustomerController extends Controller
         ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
         ->join('users', 'users.id', '=', 'cards.author_id')
         ->where('client.deleted_at', '=',  null )
-        ->where('cards.author_id', '=', $userId->id )
+        ->where('card_user.enter_id', '=', $userId->id )
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  )
         ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
@@ -90,7 +90,7 @@ class CustomerController extends Controller
             $day = DB::table('card_type')->where('card_type.id', '=', $item['card_type_id'] )->select('validation')->first()->validation;
             $day_str="+$day days";
             $end_active =date('Y-m-d',strtotime($day_str,strtotime($item['strat_active'])));
-            DB::table('card_user')->insert(array('card_id' => DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=> $item['card_user_id'],'created_at'=>$date)),'client_id' =>DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'address'=>$item['address'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date)),'strat_active' => $item['strat_active'],'author_id'=>$userId,'names' =>$names,'end_active' =>  $end_active,'created_at'=>$date));
+            DB::table('card_user')->insert(array('card_id' => DB::table('cards')->insertGetId(array('card_number' => $item['card_number'],'card_type_id' => $item['card_type_id'],'author_id'=> $item['card_user_id'],'created_at'=>$date)),'client_id' =>DB::table('client')->insertGetId(array('full_name' => $item['full_name'],'phone' => $item['phone'],'address'=>$item['address'],'birth_date'=>$item['birth_date'],'author_id'=>$userId,'created_at'=>$date)),'strat_active' => $item['strat_active'],'author_id'=>$userId,'names' =>$names,'end_active' =>  $end_active,'created_at'=>$date,'enter_id'=>Auth::user()));
             return response()->json('Added Client');
         }
         else
