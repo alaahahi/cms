@@ -124,7 +124,8 @@
             </div>
         </div>
         <p class='text-center'>أسماء أفراد العائلة</p>
-        <div class="row">
+        <p class='text-center' id='names'></p>
+        <div class="row" class='names'>
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="name1" class="col-form-label">1</label>
@@ -156,7 +157,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" class="names">
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="name6" class="col-form-label">6</label>
@@ -243,6 +244,8 @@
     window.location.href = "{{ route('generatePDF_card_order') }}/"+q ;
     });
     $('body').on('click', '.add', function () { 
+        $(".names").show();
+        $("#names").hide();
         $("#card_type").show();
         $("#card_type_id").hide();
         $("#card_user_id").hide();
@@ -274,6 +277,9 @@
                 $('#card_user_id').val(client.name);
                 $('#card_type_id').val(client.title);
                 $('#address').val(client.address);
+                $('#names').text(client.names);
+                $(".names").hide();
+                $("#names").show();
                 $("#card_type").hide();
                 $("#card_type_id").show();
                 $("#card_user").hide();

@@ -122,7 +122,7 @@ class CustomerController extends Controller
         ->where('client.id', '=',$id)
         ->where('cards.is_valid', '=', 1 )
         ->where('client.deleted_at', '=',  null )
-        ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','client.address','card_user.strat_active','card_user.end_active', 'card_type.title' ,'client.birth_date'])
+        ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','client.address','card_user.strat_active','card_user.names','card_user.end_active', 'card_type.title' ,'client.birth_date'])
         ->first();
         return response()->json($data);       
     }
