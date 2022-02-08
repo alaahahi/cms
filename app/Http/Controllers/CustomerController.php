@@ -32,7 +32,7 @@ class CustomerController extends Controller
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  )
         ->select(['client.id','cards.card_number','card_user.created_at','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
-        ->orderBy('card_user.created_at')
+        ->orderBy('card_user.created_at', 'asc')
         ->get();
         }
         else{
@@ -46,7 +46,7 @@ class CustomerController extends Controller
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  )
         ->select(['client.id','cards.card_number','card_user.created_at','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
-        ->orderBy('card_user.created_at')
+        ->orderBy('card_user.created_at', 'asc')
         ->get();
         }       
        if ($request->ajax()) 
