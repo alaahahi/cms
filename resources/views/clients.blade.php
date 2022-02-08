@@ -234,7 +234,8 @@
             {data: 'title', name: 'title'},
             {data: 'name', name: 'name'},
             {data: 'action', name: 'action'},
-        ]
+        ],
+        "order": [[ 0, "desc" ]]
     });
     $('body').on('click', '.download', function () 
     {
