@@ -125,7 +125,7 @@
         </div>
         <p class='text-center'>أسماء أفراد العائلة</p>
         <p class='text-center' id='names'></p>
-        <div class="row" class='names'>
+        <div class="row names">
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="name1" class="col-form-label">1</label>
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" class="names">
+        <div class="row names">
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="name6" class="col-form-label">6</label>
