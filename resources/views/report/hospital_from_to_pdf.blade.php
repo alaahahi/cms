@@ -90,9 +90,9 @@ th {
                 <td>
 أفراد العائلة
                 </td>
-                    <td class="spacer">
+                    <td colspan="3">
                 {{ $customer->names }} 
-                    </td>
+                    </td> 
                 </tr>
             }
         </tbody>
