@@ -31,7 +31,7 @@ class CustomerController extends Controller
         ->where('client.deleted_at', '=',  null )
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  )
-        ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
+        ->select(['client.id','cards.card_number','card_user.created_at','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
         ->orderBy('card_user.created_at')
         ->get();
         }
@@ -45,7 +45,7 @@ class CustomerController extends Controller
         ->where('card_user.enter_id', '=', $userId->id )
         ->where('cards.is_valid', '=', 1 )
         ->where('card_user.end_active', '>=',   $date  )
-        ->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
+        ->select(['client.id','cards.card_number','card_user.created_at','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
         ->orderBy('card_user.created_at')
         ->get();
         }       
