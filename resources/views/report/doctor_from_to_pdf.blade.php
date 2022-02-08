@@ -85,6 +85,14 @@ th {
                 <td>{{ $customer->type }}</td>
                 <td>{{ $customer->price }}</td>
                 </tr>
+                <tr>
+                <td>
+أفراد العائلة
+                </td>
+                    <td colspan="3">
+                {{ $customer->names }} 
+                    </td> 
+                </tr>
             }
         </tbody>
 		@endforeach
