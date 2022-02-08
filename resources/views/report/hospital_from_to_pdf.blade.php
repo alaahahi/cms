@@ -84,9 +84,9 @@ th {
                 <td>{{ $customer->card_number }}</td>
                 <td>{{ $customer->type }}</td>
                 <td>{{ $customer->price }}</td>
-                </tr>
-                <tr>
+                <td>
                 {{ $customer->names }} 
+                </td>
                 </tr>
             }
         </tbody>
