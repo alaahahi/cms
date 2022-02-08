@@ -87,7 +87,10 @@ th {
             
                 </tr>
                 <tr>
-                    <td>
+                <td>
+أفراد العائلة
+                </td>
+                    <td class="spacer">
                 {{ $customer->names }} 
                     </td>
                 </tr>
