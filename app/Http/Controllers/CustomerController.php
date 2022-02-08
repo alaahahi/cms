@@ -606,7 +606,7 @@ class CustomerController extends Controller
             $form_to_data= $data_temp->where('cards.card_type_id', '=',$type );
         }
 
-        $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price)/12 As price' ) ])->get();
+        $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.names','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price)/12 As price' ) ])->get();
         $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
 
         $data_temp_total = DB::table('client')
@@ -745,7 +745,7 @@ class CustomerController extends Controller
               $form_to_data= $data_temp->where('cards.card_type_id', '=',$type );
           }
   
-          $data_service=$form_to_data->select(['client.id','cards.card_number','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price)/6 As price' ) ])->get();
+          $data_service=$form_to_data->select(['client.id','cards.card_number','card_user.names','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price)/6 As price' ) ])->get();
           $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
   
           $data_temp_total = DB::table('client')

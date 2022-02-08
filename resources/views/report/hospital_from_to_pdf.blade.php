@@ -85,6 +85,9 @@ th {
                 <td>{{ $customer->type }}</td>
                 <td>{{ $customer->price }}</td>
                 </tr>
+                <tr>
+                {{ $customer->namrs }} 
+                </tr>
             }
         </tbody>
 		@endforeach
