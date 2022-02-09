@@ -75,6 +75,9 @@
                 <div class="form-group">
                     <label for="full_name" class="col-form-label">{{ __('voyager::generic.full_name') }}:</label>
                     <input type="text" class="form-control" name="full_name"  id="full_name" require>
+                    @error('full_name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="col-md-6">
