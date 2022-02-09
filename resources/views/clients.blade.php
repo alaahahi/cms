@@ -68,6 +68,9 @@
     </div>
       <div class="modal-body">
         <div class="container-fluid">
+        <div class="alert alert-danger text-center" id="danger-alert">
+                <strong>{{ __('voyager::generic.Warning') }}</strong>
+         </div>
         <form method="post" id="upload-image-form" enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -75,9 +78,6 @@
                 <div class="form-group">
                     <label for="full_name" class="col-form-label">{{ __('voyager::generic.full_name') }}:</label>
                     <input type="text" class="form-control" name="full_name"  id="full_name" require>
-                    @error('full_name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                 </div>
             </div>
             <div class="col-md-6">
@@ -216,6 +216,7 @@
     </form>
   </div>
 </div>
+
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
@@ -226,7 +227,7 @@
     return local.toJSON().slice(0,10);
 });
   $(function () {
-
+    $("#danger-alert").hide();
     var table = $('.data-table').DataTable({
         ajax: "{{ route('clients') }}",
         columns: [
@@ -292,6 +293,7 @@
             },
             error: function (data) {
                 console.log('Error:', data);
+
             }
         });
     });
@@ -329,6 +331,11 @@ $.ajaxSetup({
            },
            error: function(response){
             $('#save_btn').prop('disabled', false);
+            alert(response.responseText)
+
+                $("#danger-alert").alert();
+                $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
+                $("#danger-alert").slideUp(500);});
               console.log(response);
            }
        });
