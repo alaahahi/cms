@@ -146,6 +146,7 @@ return [
         'widgets' => [
             'App\\Widgets\\Card',
             'App\\Widgets\\User',
+            'App\\Widgets\\Vin',
         ],
 
     ],
