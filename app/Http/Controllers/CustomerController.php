@@ -22,20 +22,6 @@ class CustomerController extends Controller
     {
         $userId =  Auth::user();
         $date = date('Y-m-d h:i');
-        if($userId->role_id==5){
-        $data = DB::table('client')
-        ->join('card_user', 'card_user.client_id', '=', 'client.id')
-        ->join('cards', 'cards.id', '=', 'card_user.card_id')
-        ->join('card_type', 'card_type.id', '=', 'cards.card_type_id')
-        ->join('users', 'users.id', '=', 'cards.author_id')
-        ->where('client.deleted_at', '=',  null )
-        ->where('cards.is_valid', '=', 1 )
-        ->where('card_user.end_active', '>=',   $date  )
-        ->select(['client.id','cards.card_number','card_user.created_at','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
-        ->orderBy('card_user.created_at','desc')
-        ->get();
-        }
-        else{
         $data = DB::table('client')
         ->join('card_user', 'card_user.client_id', '=', 'client.id')
         ->join('cards', 'cards.id', '=', 'card_user.card_id')
@@ -47,8 +33,7 @@ class CustomerController extends Controller
         ->where('card_user.end_active', '>=',   $date  )
         ->select(['client.id','cards.card_number','card_user.created_at','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title'])
         ->orderBy('card_user.created_at','desc')
-        ->get();
-        }       
+        ->get();       
        if ($request->ajax()) 
        {
         return Datatables::of($data)
