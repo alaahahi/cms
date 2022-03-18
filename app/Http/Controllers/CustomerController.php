@@ -134,7 +134,7 @@ class CustomerController extends Controller
      }
         return view('check_card',compact('data'));
     }
-    public function check_card_no($q)
+    public function check_card_no($q,$type="")
     { 
         $date = date('Y-m-d');
         $data = DB::table('client')
@@ -147,6 +147,7 @@ class CustomerController extends Controller
         ->where('cards.is_valid', '=', 1 )
         ->where('client.deleted_at', '=',  null )
         ->where('cards.card_number', '=', $q )
+        ->where('cards.card_type_id', '=', $type )
         ->select("*")
         ->first();
         return response()->json($data);        
