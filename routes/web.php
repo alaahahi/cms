@@ -40,7 +40,7 @@ Route::delete('remove_clients/{id?}', [CustomerController::class, 'remove_client
 
 
 Route::get('check_card/{q?}/{type?}', [CustomerController::class, 'check_card'])->name('check_card');
-Route::get('check_card_no/{q?}', [CustomerController::class, 'check_card_no'])->name('check_card_no');
+Route::get('check_card_no/{q?}/{type?}', [CustomerController::class, 'check_card_no'])->name('check_card_no');
 Route::get('card_service/{q?}', [CustomerController::class, 'card_service'])->name('card_service');
 Route::get('submit_service/{client?}/{services?}/{q?}', [CustomerController::class, 'submit_service'])->name('submit_service');
 
