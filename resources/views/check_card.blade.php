@@ -39,13 +39,24 @@
             <br>
             
             <div class="row">
-                <div class="col-md-6 text-center">           
+                <div class="col-md-4 text-center">           
                     <div class="form-group">
                         <label for="card_number_input">{{ __('voyager::generic.card_number') }}</label>
                         <input  value = "0" type="text" id="card_number_input"  class="form-control mx-sm-3" >
                     </div>
                 </div>
-                <div class="col-md-6 text-center">
+                <div class="col-md-4 text-center">           
+                    <div class="form-group">
+                    <label for="card_number_input">{{ __('voyager::generic.card_type') }}</label>
+                  <!--  <input type="text" class="form-control"  id="card_user_id" disabled>-->
+                  <select id="service_input"  class="form-control select2-ajax select2-hidden-accessible" name="card_type_id" data-get-items-route="https://savingservices.net/cms/public/admin/servicecardtype/relation" data-get-items-field="servicecardtype_belongsto_card_type_relationship" data-method="add" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                    <option value="0" >{{ __('voyager::generic.all') }}</option>
+                    </select>  
+      
+                 
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
                     <div class="form-group">
                     <br>
                     <a href="javascript:void(0)" class="btn btn-primary col-md-12  add">{{ __('voyager::generic.check_card') }}</a>
@@ -152,6 +163,7 @@
     var table;
     $('body').on('click', '.add', function () { 
         var q = $('#card_number_input').val();
+        var type  = $('#service_input').find(":selected").val();
         $.ajax({
             type: "GET",
             url:"{{ route('check_card_no') }}/"+q ,
@@ -170,7 +182,7 @@
                 $('#card_type_id').val(client.title);
                 $.ajax({
                                 type: "GET",
-                                url:"{{ route('card_service') }}/"+q ,
+                                url:"{{ route('card_service') }}/"+q+"/"+type ,
                                 success: function (service) {
                                     if(service !=0 ){
                                         $('#Services').empty();

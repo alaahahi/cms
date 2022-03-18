@@ -112,7 +112,7 @@ class CustomerController extends Controller
         return response()->json($data);       
     }
     
-    public function check_card(Request $request,$q="")
+    public function check_card(Request $request,$q="",$type="")
     { 
         $date = date('Y-m-d');
         $data = DB::table('services')
@@ -124,6 +124,7 @@ class CustomerController extends Controller
         ->join('card_user', 'card_user.card_id', '=', 'cards.id')
         ->where('client.deleted_at', '=',  null )
         ->where('card_user.end_active', '>',   $date  )
+        ->where('cards.card_type_id', '=', $type )
         ->where('cards.card_number', '=', $q )
         ->select(['client.id','services.title','service_client.date','service_client.number','users.name','cards.card_number'])
         ->get();      
