@@ -166,7 +166,7 @@
         var type  = $('#service_input').find(":selected").val();
         $.ajax({
             type: "GET",
-            url:"{{ route('check_card_no') }}/"+q ,
+            url:"{{ route('check_card_no') }}/"+q+"/"+ type,
             success: function (client) {
                 if(client.card_number){
                 $("#active_to").text(client.end_active+' Type Card is '+client.title);
