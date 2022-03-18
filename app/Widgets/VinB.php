@@ -24,7 +24,7 @@ class VinB extends BaseDimmer
     public function run()
     {
         $count = Cards::where('card_type_id','=','14')->count();
-        $string =  "Vin Card B";//trans_choice('voyager::dimmer.user', $count);
+        $string =  "VinCard-B";//trans_choice('voyager::dimmer.user', $count);
 
         return view('voyager::dimmer', array_merge($this->config, [
             'icon'   => 'voyager-group',
