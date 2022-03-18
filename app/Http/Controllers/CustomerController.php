@@ -147,7 +147,7 @@ class CustomerController extends Controller
         ->where('cards.is_valid', '=', 1 )
         ->where('client.deleted_at', '=',  null )
         ->where('cards.card_number', '=', $q )
-        ->where('cards.card_type_id', '=', $type )
+        ->where('card_type.id', '=', $type )
         ->select("*")
         ->first();
         return response()->json($data);        
