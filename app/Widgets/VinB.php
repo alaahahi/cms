@@ -8,7 +8,7 @@ use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Widgets\BaseDimmer;
 use App\Models\Cards;
 
-class Vin extends BaseDimmer
+class VinB extends BaseDimmer
 {
     /**
      * The configuration array.
@@ -23,15 +23,15 @@ class Vin extends BaseDimmer
      */
     public function run()
     {
-        $count = Cards::where('card_type_id','=','13')->count();
-        $string =  "Vin Card A";//trans_choice('voyager::dimmer.user', $count);
+        $count = Cards::where('card_type_id','=','14')->count();
+        $string =  "Vin Card B";//trans_choice('voyager::dimmer.user', $count);
 
         return view('voyager::dimmer', array_merge($this->config, [
             'icon'   => 'voyager-group',
             'title'  => "{$count} {$string}",
-            'text'   =>"Vin Card Type A" ,//__('voyager::dimmer.user_text', ['count' => $count, 'string' => Str::lower($string)]),
+            'text'   =>"Vin Card Type B" ,//__('voyager::dimmer.user_text', ['count' => $count, 'string' => Str::lower($string)]),
             'button' => [
-                'text' => "Type A",
+                'text' => "Type B",
                 'link' => "#",
             ],
             'image' => voyager_asset('images/widget-backgrounds/03.jpg'),
