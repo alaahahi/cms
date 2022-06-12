@@ -198,7 +198,7 @@ body {
 </head>
 <body>
 <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo" href="#">Cosmetic Card Erbil</a>
+        <a class="navbar-brand navbar-logo" href="#">Card Erbil Hospital</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-white"></i>
         </button>

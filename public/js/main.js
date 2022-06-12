@@ -45,7 +45,7 @@ function test(){
   });
 $(document).ready(function () {  
             setTimeout(function(){ test(); });
-            $.getJSON(url_all_clinet+'/'+7, function (data) {
+            $.getJSON(url_all_clinet+'/'+5, function (data) {
             $.each(data, function (index, value) {
             $('#all_clinet').append('<option value="' + value.id + '">' + value.full_name + '</option>');
              });
