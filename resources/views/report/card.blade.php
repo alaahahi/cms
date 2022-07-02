@@ -350,7 +350,7 @@
     $('.dataTables_wrapper').hide();
     $('.data-table1').show();
     table = $('.data-table1').DataTable({
-                            ajax: "{{ route('cards_from_to') }}/"+from+"/"+to+"/"+type+"/"+false,
+                            ajax:" {{ route('cards_from_to') }}/"+from+"/"+to+"/"+type+"/"+false,
                                     columns: [
                                     {data: 'full_name', name: 'full_name'},
                                     {data: 'phone', name: 'phone'},

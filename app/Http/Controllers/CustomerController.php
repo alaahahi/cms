@@ -340,7 +340,7 @@ class CustomerController extends Controller
         if ($request->ajax()) 
         {
          return Datatables::of($data)->make(true);
-      }
+        }
         return view('report/service',compact('data'));
     }
     public function check_service(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
@@ -401,8 +401,7 @@ class CustomerController extends Controller
         }
         return view('check_card',compact('data'));
     }
-
-    //report users
+     //report users
     public function user(Request $request,$q="")
     { 
         $data = DB::table('client')
@@ -420,7 +419,7 @@ class CustomerController extends Controller
         if ($request->ajax()) 
         {
          return Datatables::of($data)->make(true);
-      }
+        }
         return view('report/user',compact('data'));
     }
     public function check_user(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
@@ -539,8 +538,7 @@ class CustomerController extends Controller
     
         return view('check_card',compact('data'));
     }
-    
-    //report hospital
+      //report hospital
     public function hospital(Request $request,$q="")
     { 
         $data = DB::table('client')
@@ -558,7 +556,7 @@ class CustomerController extends Controller
         if ($request->ajax()) 
         {
          return Datatables::of($data)->make(true);
-      }
+        }
         return view('report/hospital',compact('data'));
     }
     public function check_hospital(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
@@ -635,7 +633,6 @@ class CustomerController extends Controller
         }
         return view('check_card',compact('data'));
     }
-
     public function check_hospital_total(Request $request,$from=0,$to=0,$type=0)
     { 
         //if ($from == 0) $from ="2021-06-01";
@@ -678,10 +675,9 @@ class CustomerController extends Controller
     
         return view('check_card',compact('data'));
     }
-
       //report doctor
-      public function doctor(Request $request,$q="")
-      { 
+    public function doctor(Request $request,$q="")
+    { 
           $data = DB::table('client')
           ->join('card_user', 'card_user.client_id', '=', 'client.id')
           ->join('cards', 'cards.id', '=', 'card_user.card_id')
@@ -699,9 +695,9 @@ class CustomerController extends Controller
            return Datatables::of($data)->make(true);
         }
           return view('report/doctor',compact('data'));
-      }
-      public function check_doctor(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
-      { 
+    }
+    public function check_doctor(Request $request,$from=0,$to=0,$type=0,$pdf_download=false)
+    { 
           //if ($from == 0) $from ="2021-06-01";
           //if ($to == 0) $to =date('Y-m-d');
           $date = date('Y-m-d h:i');
@@ -732,7 +728,7 @@ class CustomerController extends Controller
               $form_to_data= $data_temp->where('cards.card_type_id', '=',$type );
           }
   
-          $data_service=$form_to_data->select(['client.id','cards.card_number','card_user.names','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('(card_type.price)/6 As price' ) ])->get();
+          $data_service=$form_to_data->select(['client.id','cards.card_number','card_user.names','users.name','client.full_name','client.phone','card_user.strat_active','card_user.end_active', 'card_type.title as type',DB::raw('3000 As price' ) ])->get();
           $data_count=$form_to_data->select(['users.name', 'card_type.title'])->count();
   
           $data_temp_total = DB::table('client')
@@ -758,7 +754,7 @@ class CustomerController extends Controller
           {
               $form_to_data_total= $data_temp_total->where('cards.card_type_id', '=',$type );
           }
-          $data_service_total=$form_to_data_total->select(['card_type.title',DB::raw('SUM((card_type.price)/6) as total')])->get();
+          $data_service_total=$form_to_data_total->select(['card_type.title',DB::raw('SUM(3000) as total')])->get();
           //return response()->json($data_service_total);  
          if ($request->ajax()) 
          {
@@ -774,10 +770,9 @@ class CustomerController extends Controller
           return response()->json("No Services");
           }
           return view('check_card',compact('data'));
-      }
-  
-      public function check_doctor_total(Request $request,$from=0,$to=0,$type=0)
-      { 
+    }
+    public function check_doctor_total(Request $request,$from=0,$to=0,$type=0)
+    { 
           //if ($from == 0) $from ="2021-06-01";
           //if ($to == 0) $to =date('Y-m-d');
           $date = date('Y-m-d h:i');
@@ -807,8 +802,7 @@ class CustomerController extends Controller
           {
               $form_to_data= $data_temp->where('cards.card_type_id', '=',$type );
           }
-       
-          $data_service=$form_to_data->select(['card_type.title',DB::raw('SUM((card_type.price)/6) as total')])->get();
+          $data_service=$form_to_data->select(['card_type.title',DB::raw('SUM((3000) as total')])->get();
           $data_count=$form_to_data->select(['card_type.title'])->count();
   
          //return response()->json($data_service);
@@ -818,6 +812,5 @@ class CustomerController extends Controller
          }
       
           return view('doctor_card',compact('data'));
-      }
-    
+    }
 }
