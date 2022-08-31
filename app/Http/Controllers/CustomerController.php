@@ -52,7 +52,7 @@ class CustomerController extends Controller
     {
         $date = date('Y-m-d h:i');
         $userId = $request->card_user_id;// Auth::user()->id;
-        $names=  $request->name1.','.$request->name2.','.$request->name3.','.$request->name4.','.$request->name5.','.$request->name6.','
+        $names=  $request->names ? $request->names : $request->name1.','.$request->name2.','.$request->name3.','.$request->name4.','.$request->name5.','.$request->name6.','
         .$request->name7.','.$request->name8.','.$request->name9.','.$request->name10;
 
         $item= [ 
@@ -87,7 +87,9 @@ class CustomerController extends Controller
                 'phone' => 'required',
                 'birth_date' => 'required']);
         DB::table('client')->where('id',$id)->update(['full_name' => $item['full_name'],'phone' => $item['phone'],'birth_date'=>$item['birth_date'],'address'=>$item['address'],'updated_at'=>$date]);
-        return response()->json('Update client');
+        DB::table('card_user')->where('card_user.client_id',$id)->update(['names' => $item['names']]);
+
+        return response()->json("done");
         }
         //return redirect('path')->with(['message' => "Product Update data Successfully", 'alert-type' => 'success']);
     }

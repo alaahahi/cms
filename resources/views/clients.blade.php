@@ -127,10 +127,9 @@
             </div>
         </div>
         <p class='text-center'>أسماء أفراد العائلة</p>
-        <div class="col-md-2" >
+        <div class="col-md-12" >
                 <div class="form-group">
-                    <label for="name1" class="col-form-label">1</label>
-                    <input type="text" class="form-control"  id='names'>
+                    <input type="text" class="form-control" name="names"  id='names'>
                 </div>
             </div>
         <div class="row names">
