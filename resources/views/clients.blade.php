@@ -127,7 +127,12 @@
             </div>
         </div>
         <p class='text-center'>أسماء أفراد العائلة</p>
-        <p class='text-center' id='names'></p>
+        <div class="col-md-2" >
+                <div class="form-group">
+                    <label for="name1" class="col-form-label">1</label>
+                    <input type="text" class="form-control"  id='names'>
+                </div>
+            </div>
         <div class="row names">
             <div class="col-md-2">
                 <div class="form-group">
@@ -281,7 +286,7 @@
                 $('#card_user_id').val(client.name);
                 $('#card_type_id').val(client.title);
                 $('#address').val(client.address);
-                $('#names').text(client.names);
+                $('#names').val(client.names);
                 $(".names").hide();
                 $("#names").show();
                 $("#card_type").hide();
